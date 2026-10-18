@@ -2,264 +2,491 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Für Emily 💗</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Emre ♡ Emily</title>
 
-  <style>
-    * {
-      box-sizing: border-box;
-    }
+<style>
+*{box-sizing:border-box}
+body{
+  margin:0;min-height:100vh;min-height:100dvh;
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  background:linear-gradient(135deg,#ffe0ec,#fff1f5,#ffd6e5);
+  color:#74334e
+}
+button{font-family:inherit;cursor:pointer}
+.hidden{display:none!important}
+.center{
+  min-height:100vh;min-height:100dvh;
+  display:flex;justify-content:center;align-items:center;
+  padding:20px
+}
+.card{
+  width:min(100%,440px);padding:34px 22px;text-align:center;
+  background:rgba(255,255,255,.86);border:2px solid white;
+  border-radius:30px;box-shadow:0 15px 50px #c45b8426;
+  position:relative
+}
+.bear{font-size:75px;margin-bottom:10px;animation:bounce 2s infinite}
+h1{font-size:clamp(25px,7vw,34px);margin:10px 0}
+p{color:#a36b82;font-size:16px;line-height:1.6}
+.buttons{
+  display:flex;justify-content:center;align-items:center;
+  gap:14px;margin-top:30px;min-height:55px
+}
+button{
+  font-size:16px;font-weight:700;border:0;
+  border-radius:16px;padding:14px 22px
+}
+#yes,.primary{
+  color:white;background:#f06292;box-shadow:0 5px 0 #d94e7c;
+  transition:transform .2s
+}
+#yes:hover,.primary:hover{transform:scale(1.06)}
+#no{
+  color:#a45b78;background:#ffe1ec;white-space:nowrap;
+  transition:left .15s ease,top .15s ease;z-index:10
+}
+#no.running{position:fixed}
+.hint{font-size:12px;margin-top:28px;opacity:.7}
 
-    body {
-      margin: 0;
-      min-height: 100vh;
-      min-height: 100dvh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      overflow: hidden;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      background: linear-gradient(135deg, #ffe0ec, #fff1f5, #ffd6e5);
-      color: #74334e;
-    }
+/* Die weiteren Seiten */
+#world{min-height:100vh;padding:25px 15px 45px}
+.container{max-width:650px;margin:auto}
+.top{text-align:center;padding:20px 8px 25px}
+.top .bear{font-size:60px}
+.eyebrow{
+  text-transform:uppercase;letter-spacing:2px;
+  font-size:11px;color:#c05d84;font-weight:800
+}
+.top h1{color:#8e3e60;font-size:clamp(30px,8vw,43px)}
+.panel{
+  background:rgba(255,255,255,.9);border:2px solid white;
+  border-radius:25px;padding:23px;margin-bottom:18px;
+  box-shadow:0 10px 30px #c45b8417
+}
+.section-title{font-size:23px;margin:0 0 8px}
+.muted{color:#a36b82;font-size:14px}
+.menu-buttons{
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:12px;margin-bottom:20px
+}
+.menu-button{
+  min-height:125px;padding:18px 8px;background:white;color:#87405f;
+  border:2px solid #f9d6e3;border-radius:22px;
+  box-shadow:0 5px 0 #f4cfdd;transition:transform .2s
+}
+.menu-button:hover{transform:translateY(-3px)}
+.menu-button .emoji{display:block;font-size:35px;margin-bottom:9px}
+.menu-button small{
+  display:block;font-size:12px;font-weight:500;
+  margin-top:6px;color:#b07890
+}
+.back-button{
+  background:#ffe1ec;color:#974c6c;margin-bottom:18px
+}
+.letter{
+  background:linear-gradient(135deg,#fff1f6,#ffe0ec);
+  border:1px dashed #ed9ab8;border-radius:20px;
+  padding:26px 18px;text-align:center
+}
+.letter .big-heart{font-size:48px;animation:bounce 2s infinite}
+.letter p{font-size:19px;color:#8e3e60}
+.signature{font-weight:800;color:#d65383;font-size:17px}
 
-    .card {
-      width: min(90%, 420px);
-      padding: 38px 22px;
-      text-align: center;
-      background: rgba(255, 255, 255, 0.82);
-      border: 2px solid white;
-      border-radius: 30px;
-      box-shadow: 0 15px 50px rgba(196, 91, 132, 0.15);
-      position: relative;
-      z-index: 1;
-    }
-
-    .bear {
-      font-size: 75px;
-      margin-bottom: 10px;
-      animation: bounce 2s infinite;
-    }
-
-    h1 {
-      font-size: clamp(25px, 7vw, 34px);
-      margin: 10px 0;
-    }
-
-    p {
-      color: #a36b82;
-      font-size: 16px;
-      line-height: 1.5;
-    }
-
-    .buttons {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: 14px;
-      margin-top: 30px;
-      min-height: 55px;
-    }
-
-    button {
-      font-size: 17px;
-      font-weight: 700;
-      border: none;
-      border-radius: 16px;
-      padding: 15px 25px;
-      cursor: pointer;
-      -webkit-tap-highlight-color: transparent;
-    }
-
-    #yes {
-      color: white;
-      background: #f06292;
-      box-shadow: 0 5px 0 #d94e7c;
-      transition: transform 0.2s;
-      z-index: 2;
-    }
-
-    #yes:hover {
-      transform: scale(1.08);
-    }
-
-    #no {
-      color: #a45b78;
-      background: #ffe1ec;
-      white-space: nowrap;
-      transition: left 0.15s ease, top 0.15s ease;
-      z-index: 10;
-    }
-
-    #no.running {
-      position: fixed;
-    }
-
-    .hint {
-      font-size: 12px;
-      margin-top: 28px;
-      opacity: 0.7;
-    }
-
-    .heart {
-      position: fixed;
-      bottom: -30px;
-      pointer-events: none;
-      animation: floatUp linear forwards;
-      z-index: 20;
-    }
-
-    .hidden {
-      display: none;
-    }
-
-    #success h1 {
-      color: #ed5488;
-    }
-
-    @keyframes bounce {
-      0%, 100% { transform: translateY(0) rotate(-3deg); }
-      50% { transform: translateY(-8px) rotate(3deg); }
-    }
-
-    @keyframes floatUp {
-      to {
-        transform: translateY(-110vh) rotate(360deg);
-        opacity: 0;
-      }
-    }
-  </style>
+/* Bucket List */
+.progress-area{margin:18px 0 22px}
+.progress-label{
+  display:flex;justify-content:space-between;gap:10px;
+  font-size:13px;font-weight:700;margin-bottom:9px;color:#98506d
+}
+.progress-track{height:12px;background:#ffe2ec;border-radius:99px;overflow:hidden}
+#progress-bar{
+  height:100%;width:0%;
+  background:linear-gradient(90deg,#f58bb0,#e94d87);
+  border-radius:99px;transition:width .5s
+}
+.bucket-list{display:grid;gap:10px}
+.bucket-item{
+  display:flex;align-items:center;gap:12px;padding:14px;
+  border-radius:17px;border:1px solid #f7dce6;
+  background:#fffafd;cursor:pointer;user-select:none;
+  transition:transform .2s,background .2s
+}
+.bucket-item:active{transform:scale(.98)}
+.bucket-item.done{background:#ffedf4;border-color:#f4b6cd}
+.bucket-item input{
+  appearance:none;flex-shrink:0;width:25px;height:25px;
+  border:2px solid #e6a2ba;border-radius:8px;
+  background:white;cursor:pointer;position:relative
+}
+.bucket-item input:checked{
+  background:#f06292;border-color:#f06292;
+  animation:pop .3s
+}
+.bucket-item input:checked::after{
+  content:"✓";position:absolute;color:white;font-size:18px;
+  font-weight:900;left:4px;top:-1px
+}
+.bucket-text{font-size:14px;line-height:1.45;flex:1}
+.bucket-item.done .bucket-text{
+  text-decoration:line-through;color:#b78599
+}
+#toast{
+  position:fixed;left:50%;bottom:24px;
+  transform:translate(-50%,30px);opacity:0;
+  background:#873d60;color:white;padding:13px 20px;
+  border-radius:18px;font-size:14px;font-weight:700;
+  text-align:center;width:max-content;max-width:90%;
+  pointer-events:none;z-index:100;
+  transition:opacity .25s,transform .25s;
+  box-shadow:0 8px 25px #873d6033
+}
+#toast.show{opacity:1;transform:translate(-50%,0)}
+.heart{
+  position:fixed;bottom:-30px;pointer-events:none;
+  animation:floatUp linear forwards;z-index:101
+}
+@keyframes bounce{
+  0%,100%{transform:translateY(0) rotate(-3deg)}
+  50%{transform:translateY(-8px) rotate(3deg)}
+}
+@keyframes pop{50%{transform:scale(1.25) rotate(-8deg)}}
+@keyframes floatUp{
+  to{transform:translateY(-110vh) rotate(360deg);opacity:0}
+}
+@media(max-width:380px){
+  .panel{padding:17px}
+  .bucket-item{padding:12px 10px}
+  .bucket-text{font-size:13px}
+}
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}
+}
+</style>
 </head>
 
 <body>
+
+<!-- STARTSEITE: Ja/Nein-Prinzip bleibt erhalten -->
+<div class="center" id="start">
   <main class="card">
     <section id="question">
       <div class="bear">🥹💗</div>
-
       <h1>Emily, magst du mich?</h1>
       <p>Überleg dir deine Antwort gut ...<br>
-         Ich schaue ganz genau hin! 👀</p>
-
+      Ich schaue ganz genau hin! 👀</p>
       <div class="buttons">
         <button id="yes">Ja ❤️</button>
         <button id="no">Nein 🙈</button>
       </div>
-
       <p class="hint">Pssst ... es gibt nur eine richtige Antwort 😇</p>
     </section>
-
     <section id="success" class="hidden">
       <div class="bear">🥰💋</div>
       <h1>WUSSTE ICH ES DOCH!</h1>
-      <p>
-        Ich hab dich auch lieb, Emily! 💗<br><br>
-        Du bist die Süßeste.<br>
-        Ganz viele Küsse von deinem Emre. 💋
-      </p>
-      <div style="font-size: 35px">💗💕💖💗💕</div>
+      <p>Ich hab dich auch lieb, Emily! 💗<br><br>
+      Du bist die Süßeste.<br>Ganz viele Küsse von deinem Emre. 💋</p>
+      <div style="font-size:35px">💗💕💖💗💕</div>
+      <button class="primary" onclick="openWorld()" style="margin-top:20px">
+        Weiter geht's → 💌
+      </button>
     </section>
   </main>
+</div>
 
-  <script>
-    const noButton = document.getElementById("no");
-    const yesButton = document.getElementById("yes");
-    const question = document.getElementById("question");
-    const success = document.getElementById("success");
+<!-- HAUPTMENÜ -->
+<div id="world" class="hidden">
+  <div class="container">
+    <header class="top">
+      <div class="bear">🐻💗</div>
+      <div class="eyebrow">A LITTLE PLACE FOR US</div>
+      <h1>Emre ♡ Emily</h1>
+      <p>Willkommen in unserer kleinen Welt.<br>
+      Schön, dass es dich gibt, Emily. 🥹</p>
+    </header>
 
-    let attempts = 0;
+    <section id="menu">
+      <div class="panel">
+        <h2 class="section-title">Was machen wir heute? ✨</h2>
+        <p class="muted">Du hast zwei wichtige Missionen.</p>
+        <div class="menu-buttons">
+          <button class="menu-button" onclick="showPage('letterPage')">
+            <span class="emoji">💌</span>
+            Eine Nachricht
+            <small>Nur für dich, Emily</small>
+          </button>
+          <button class="menu-button" onclick="showPage('bucketPage')">
+            <span class="emoji">✨</span>
+            Unsere Bucket List
+            <small id="menuProgress">0 von 19 erledigt</small>
+          </button>
+        </div>
+      </div>
+      <p style="text-align:center;font-size:12px">
+        Mit ganz viel Mühe gebaut von Emre ♡
+      </p>
+    </section>
 
-    function moveNoButton() {
-      // Erst beim ersten Ausweichen aus dem Layout lösen
-      noButton.classList.add("running");
+    <!-- PERSÖNLICHE NACHRICHT -->
+    <section id="letterPage" class="hidden">
+      <button class="back-button" onclick="showPage('menu')">← Zurück</button>
+      <div class="panel">
+        <div class="letter">
+          <div class="big-heart">💌</div>
+          <h2 class="section-title">Für Emily</h2>
+          <p><strong>Ich mag dich richtig viel.<br>
+          Das hab ich nur für dich gebaut &lt;3</strong></p>
+          <div style="font-size:30px;margin:20px">🥹 💗 🫶</div>
+          <div class="signature">Dein Emre ♡</div>
+        </div>
+      </div>
+    </section>
 
-      const margin = 15;
-      const maxX = window.innerWidth - noButton.offsetWidth - margin;
-      const maxY = window.innerHeight - noButton.offsetHeight - margin;
+    <!-- BUCKET LIST -->
+    <section id="bucketPage" class="hidden">
+      <button class="back-button" onclick="showPage('menu')">← Zurück</button>
+      <div class="panel">
+        <h2 class="section-title">Unsere Bucket List 📝</h2>
+        <p class="muted">
+          19 Missionen für Emre & Emily.<br>
+          Zusammen abhaken macht doppelt Spaß. 💗
+        </p>
 
-      let x, y;
-      const oldX = noButton.getBoundingClientRect().left;
-      const oldY = noButton.getBoundingClientRect().top;
+        <div class="progress-area">
+          <div class="progress-label">
+            <span id="progress-text">Noch nichts erledigt 👀</span>
+            <span id="progress-count">0/19</span>
+          </div>
+          <div class="progress-track">
+            <div id="progress-bar"></div>
+          </div>
+        </div>
 
-      // Möglichst weit weg von der bisherigen Position springen
-      do {
-        x = margin + Math.random() * Math.max(0, maxX - margin);
-        y = margin + Math.random() * Math.max(0, maxY - margin);
-      } while (
-        Math.abs(x - oldX) < 120 &&
-        Math.abs(y - oldY) < 80
-      );
+        <div id="bucketList" class="bucket-list"></div>
 
-      noButton.style.left = x + "px";
-      noButton.style.top = y + "px";
+        <div id="allDone" class="hidden" style="text-align:center;padding-top:24px">
+          <div style="font-size:55px">🏆💗🎉</div>
+          <h2>ALLES ERLEDIGT?!</h2>
+          <p>Ihr habt offiziell keine Ausreden mehr.<br>
+          Zeit für neue gemeinsame Abenteuer! 😂</p>
+        </div>
+      </div>
+    </section>
+  </div>
+</div>
 
-      attempts++;
+<div id="toast" role="status" aria-live="polite"></div>
 
-      if (attempts === 3) {
-        noButton.textContent = "Hihi 😝";
-      } else if (attempts === 6) {
-        noButton.textContent = "Erwischt mich nie 😂";
-      } else if (attempts >= 9) {
-        noButton.textContent = "Gib auf 🙈";
+<script>
+const noButton = document.getElementById("no");
+const yesButton = document.getElementById("yes");
+const question = document.getElementById("question");
+const success = document.getElementById("success");
+
+let attempts = 0;
+
+function moveNoButton() {
+  noButton.classList.add("running");
+
+  const margin = 15;
+  const maxX = Math.max(margin, window.innerWidth - noButton.offsetWidth - margin);
+  const maxY = Math.max(margin, window.innerHeight - noButton.offsetHeight - margin);
+
+  let x, y;
+  const old = noButton.getBoundingClientRect();
+
+  do {
+    x = margin + Math.random() * Math.max(0, maxX - margin);
+    y = margin + Math.random() * Math.max(0, maxY - margin);
+  } while (
+    Math.abs(x - old.left) < 120 &&
+    Math.abs(y - old.top) < 80
+  );
+
+  noButton.style.left = x + "px";
+  noButton.style.top = y + "px";
+
+  attempts++;
+  if (attempts === 3) noButton.textContent = "Hihi 😝";
+  else if (attempts === 6) noButton.textContent = "Erwischt mich nie 😂";
+  else if (attempts >= 9) noButton.textContent = "Gib auf 🙈";
+}
+
+noButton.addEventListener("pointerenter", event => {
+  if (event.pointerType === "mouse") moveNoButton();
+});
+noButton.addEventListener("pointerdown", event => {
+  event.preventDefault();
+  moveNoButton();
+});
+noButton.addEventListener("click", event => {
+  event.preventDefault();
+  moveNoButton();
+});
+
+yesButton.addEventListener("click", () => {
+  question.classList.add("hidden");
+  success.classList.remove("hidden");
+  for (let i = 0; i < 45; i++) {
+    setTimeout(createHeart, i * 65);
+  }
+});
+
+window.addEventListener("resize", () => {
+  if (!noButton.classList.contains("running")) return;
+  const r = noButton.getBoundingClientRect();
+  noButton.style.left = Math.max(10, Math.min(r.left, window.innerWidth - noButton.offsetWidth - 10)) + "px";
+  noButton.style.top = Math.max(10, Math.min(r.top, window.innerHeight - noButton.offsetHeight - 10)) + "px";
+});
+
+function createHeart() {
+  const heart = document.createElement("div");
+  heart.className = "heart";
+  const emojis = ["💗","💖","💕","💘","❤️","✨"];
+  heart.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+  heart.style.left = Math.random() * 100 + "vw";
+  heart.style.fontSize = (18 + Math.random() * 25) + "px";
+  heart.style.animationDuration = (2 + Math.random() * 3) + "s";
+  document.body.appendChild(heart);
+  setTimeout(() => heart.remove(), 5500);
+}
+
+/* Navigation */
+function openWorld() {
+  document.getElementById("start").classList.add("hidden");
+  document.getElementById("world").classList.remove("hidden");
+  showPage("menu");
+  window.scrollTo(0, 0);
+}
+
+function showPage(pageId) {
+  ["menu", "letterPage", "bucketPage"].forEach(id => {
+    document.getElementById(id).classList.toggle("hidden", id !== pageId);
+  });
+  window.scrollTo({top: 0, behavior: "smooth"});
+}
+
+/* Unsere 19 Bucket-List-Missionen */
+const activities = [
+  "Bei Lolu’s essen gehen",
+  "Date im geheimnisvollen Bougee Restaurant in Neudorf",
+  "In Prag Baumstriezeln essen",
+  "Sauna Hausboot",
+  "Henna tattoos machen",
+  "Tantra Massage",
+  "Zusammen Pizza machen",
+  "Die Suche nach dem perfekten Spaghetti Eis",
+  "1 Nasenhaar pflücken",
+  "Cocktails im Sucos do Brasil trinken",
+  "Weinwanderung an der Mosel",
+  "Business Workshop mit Alkohol (und Sex)",
+  "Hotel Spa sex?",
+  "Zusammen gözleme machen",
+  "Bollywood Film gucken",
+  "Türkisch für Anfänger zu Ende schauen",
+  "Fitnessstudio zusammen",
+  "Auf dem Balkon einen Wein trinken",
+  "Date im türkischen Restaurant"
+];
+
+const storageKey = "emreEmilyBucketListV1";
+let checkedItems = {};
+
+try {
+  checkedItems = JSON.parse(localStorage.getItem(storageKey) || "{}") || {};
+} catch (error) {
+  checkedItems = {};
+}
+
+const list = document.getElementById("bucketList");
+const funnyMessages = [
+  "MISSION ERFÜLLT! Ihr seid ja richtig produktiv 😂",
+  "Ein weiterer Punkt weniger. Emre ist stolz. 🫡",
+  "Das Date wurde offiziell ins Geschichtsbuch eingetragen 📖💗",
+  "Emily + Emre: 1. Langeweile: 0. 😎",
+  "Okay, das war irgendwie süß. 🥹",
+  "Fortschritt! Jetzt gibt’s keine Ausreden mehr. 👀",
+  "Euer zukünftiges Ich sagt Danke. 💕",
+  "POV: Ihr zieht eure Pläne tatsächlich durch 😂"
+];
+
+function saveProgress() {
+  try {
+    localStorage.setItem(storageKey, JSON.stringify(checkedItems));
+  } catch (error) {
+    // Die Liste funktioniert auch ohne lokalen Speicher.
+  }
+}
+
+function renderList() {
+  list.innerHTML = "";
+
+  activities.forEach((activity, index) => {
+    const label = document.createElement("label");
+    label.className = "bucket-item";
+    label.classList.toggle("done", !!checkedItems[index]);
+
+    const checkbox = document.createElement("input");
+    checkbox.type = "checkbox";
+    checkbox.checked = !!checkedItems[index];
+    checkbox.setAttribute("aria-label", activity);
+
+    const text = document.createElement("span");
+    text.className = "bucket-text";
+    text.textContent = activity;
+
+    checkbox.addEventListener("change", () => {
+      checkedItems[index] = checkbox.checked;
+      saveProgress();
+      renderList();
+
+      if (checkbox.checked) {
+        showToast(funnyMessages[Math.floor(Math.random() * funnyMessages.length)]);
+        for (let i = 0; i < 9; i++) {
+          setTimeout(createHeart, i * 100);
+        }
+      } else {
+        showToast("Mission wieder offen! Zweite Chance 😈");
       }
-    }
-
-    // Maus: Der Button flüchtet, bevor er erreicht wird
-    noButton.addEventListener("pointerenter", (event) => {
-      if (event.pointerType === "mouse") {
-        moveNoButton();
-      }
     });
 
-    // Handy: Ausweichen bereits beim Berühren
-    noButton.addEventListener("pointerdown", (event) => {
-      event.preventDefault();
-      moveNoButton();
-    });
+    label.append(checkbox, text);
+    list.appendChild(label);
+  });
 
-    // Zusätzliche Absicherung gegen Klicks
-    noButton.addEventListener("click", (event) => {
-      event.preventDefault();
-      moveNoButton();
-    });
+  const count = activities.filter((_, i) => !!checkedItems[i]).length;
+  const percent = Math.round(count / activities.length * 100);
 
-    yesButton.addEventListener("click", () => {
-      question.classList.add("hidden");
-      success.classList.remove("hidden");
+  document.getElementById("progress-count").textContent =
+    count + "/" + activities.length;
+  document.getElementById("progress-bar").style.width = percent + "%";
+  document.getElementById("menuProgress").textContent =
+    count + " von " + activities.length + " erledigt";
 
-      // Konfetti aus Herzen 💗
-      for (let i = 0; i < 45; i++) {
-        setTimeout(createHeart, i * 65);
-      }
-    });
+  document.getElementById("progress-text").textContent =
+    count === 0 ? "Noch nichts erledigt 👀" :
+    count === activities.length ? "ALLES GESCHAFFT! 🏆" :
+    count >= 10 ? "Ihr seid nicht mehr aufzuhalten! 🔥" :
+    count >= 5 ? "Läuft bei euch! 💗" :
+    "Der Anfang ist gemacht! ✨";
 
-    function createHeart() {
-      const heart = document.createElement("div");
-      heart.className = "heart";
+  document.getElementById("allDone").classList.toggle(
+    "hidden", count !== activities.length
+  );
+}
 
-      const emojis = ["💗", "💖", "💕", "💘", "❤️", "✨"];
-      heart.textContent = emojis[
-        Math.floor(Math.random() * emojis.length)
-      ];
+let toastTimeout;
 
-      heart.style.left = Math.random() * 100 + "vw";
-      heart.style.fontSize = (18 + Math.random() * 25) + "px";
-      heart.style.animationDuration = (2 + Math.random() * 3) + "s";
+function showToast(message) {
+  const toast = document.getElementById("toast");
+  toast.textContent = message;
+  toast.classList.add("show");
+  clearTimeout(toastTimeout);
+  toastTimeout = setTimeout(() => toast.classList.remove("show"), 2400);
+}
 
-      document.body.appendChild(heart);
-      setTimeout(() => heart.remove(), 5500);
-    }
-
-    window.addEventListener("resize", () => {
-      if (noButton.classList.contains("running")) {
-        const rect = noButton.getBoundingClientRect();
-        const x = Math.min(rect.left, window.innerWidth - noButton.offsetWidth - 10);
-        const y = Math.min(rect.top, window.innerHeight - noButton.offsetHeight - 10);
-
-        noButton.style.left = Math.max(10, x) + "px";
-        noButton.style.top = Math.max(10, y) + "px";
-      }
-    });
-  </script>
+renderList();
+</script>
 </body>
 </html>

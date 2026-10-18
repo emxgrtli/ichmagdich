@@ -8,174 +8,83 @@
 
 <style>
 *{box-sizing:border-box}
-body{
-  margin:0;min-height:100vh;min-height:100dvh;
-  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
-  background:linear-gradient(135deg,#ffe0ec,#fff1f5,#ffd6e5);
-  color:#74334e
-}
+body{margin:0;min-height:100vh;min-height:100dvh;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:linear-gradient(135deg,#ffe0ec,#fff1f5,#ffd6e5);color:#74334e}
 button{font-family:inherit;cursor:pointer}
 .hidden{display:none!important}
-.center{
-  min-height:100vh;min-height:100dvh;
-  display:flex;justify-content:center;align-items:center;
-  padding:20px
-}
-.card{
-  width:min(100%,440px);padding:34px 22px;text-align:center;
-  background:rgba(255,255,255,.86);border:2px solid white;
-  border-radius:30px;box-shadow:0 15px 50px #c45b8426;
-  position:relative
-}
+.center{min-height:100vh;min-height:100dvh;display:flex;justify-content:center;align-items:center;padding:20px}
+.card{width:min(100%,440px);padding:34px 22px;text-align:center;background:rgba(255,255,255,.86);border:2px solid white;border-radius:30px;box-shadow:0 15px 50px #c45b8426;position:relative}
 .bear{font-size:75px;margin-bottom:10px;animation:bounce 2s infinite}
 h1{font-size:clamp(25px,7vw,34px);margin:10px 0}
 p{color:#a36b82;font-size:16px;line-height:1.6}
-.buttons{
-  display:flex;justify-content:center;align-items:center;
-  gap:14px;margin-top:30px;min-height:55px
-}
-button{
-  font-size:16px;font-weight:700;border:0;
-  border-radius:16px;padding:14px 22px
-}
-#yes,.primary{
-  color:white;background:#f06292;box-shadow:0 5px 0 #d94e7c;
-  transition:transform .2s
-}
+.buttons{display:flex;justify-content:center;align-items:center;gap:14px;margin-top:30px;min-height:55px}
+button{font-size:16px;font-weight:700;border:0;border-radius:16px;padding:14px 22px}
+#yes,.primary{color:white;background:#f06292;box-shadow:0 5px 0 #d94e7c;transition:transform .2s}
 #yes:hover,.primary:hover{transform:scale(1.06)}
-#no{
-  color:#a45b78;background:#ffe1ec;white-space:nowrap;
-  transition:left .15s ease,top .15s ease;z-index:10
-}
+#no{color:#a45b78;background:#ffe1ec;white-space:nowrap;transition:left .15s ease,top .15s ease;z-index:10}
 #no.running{position:fixed}
 .hint{font-size:12px;margin-top:28px;opacity:.7}
-
-/* Die weiteren Seiten */
 #world{min-height:100vh;padding:25px 15px 45px}
 .container{max-width:650px;margin:auto}
 .top{text-align:center;padding:20px 8px 25px}
 .top .bear{font-size:60px}
-.eyebrow{
-  text-transform:uppercase;letter-spacing:2px;
-  font-size:11px;color:#c05d84;font-weight:800
-}
+.eyebrow{text-transform:uppercase;letter-spacing:2px;font-size:11px;color:#c05d84;font-weight:800}
 .top h1{color:#8e3e60;font-size:clamp(30px,8vw,43px)}
-.panel{
-  background:rgba(255,255,255,.9);border:2px solid white;
-  border-radius:25px;padding:23px;margin-bottom:18px;
-  box-shadow:0 10px 30px #c45b8417
-}
+.panel{background:rgba(255,255,255,.9);border:2px solid white;border-radius:25px;padding:23px;margin-bottom:18px;box-shadow:0 10px 30px #c45b8417}
 .section-title{font-size:23px;margin:0 0 8px}
 .muted{color:#a36b82;font-size:14px}
-.menu-buttons{
-  display:grid;grid-template-columns:1fr 1fr;
-  gap:12px;margin-bottom:20px
-}
-.menu-button{
-  min-height:125px;padding:18px 8px;background:white;color:#87405f;
-  border:2px solid #f9d6e3;border-radius:22px;
-  box-shadow:0 5px 0 #f4cfdd;transition:transform .2s
-}
+.menu-buttons{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:20px}
+.menu-button{min-height:125px;padding:18px 8px;background:white;color:#87405f;border:2px solid #f9d6e3;border-radius:22px;box-shadow:0 5px 0 #f4cfdd;transition:transform .2s}
 .menu-button:hover{transform:translateY(-3px)}
 .menu-button .emoji{display:block;font-size:35px;margin-bottom:9px}
-.menu-button small{
-  display:block;font-size:12px;font-weight:500;
-  margin-top:6px;color:#b07890
-}
-.back-button{
-  background:#ffe1ec;color:#974c6c;margin-bottom:18px
-}
-.letter{
-  background:linear-gradient(135deg,#fff1f6,#ffe0ec);
-  border:1px dashed #ed9ab8;border-radius:20px;
-  padding:26px 18px;text-align:center
-}
+.menu-button small{display:block;font-size:12px;font-weight:500;margin-top:6px;color:#b07890}
+.back-button{background:#ffe1ec;color:#974c6c;margin-bottom:18px}
+.letter{background:linear-gradient(135deg,#fff1f6,#ffe0ec);border:1px dashed #ed9ab8;border-radius:20px;padding:26px 18px;text-align:center}
 .letter .big-heart{font-size:48px;animation:bounce 2s infinite}
 .letter p{font-size:19px;color:#8e3e60}
 .signature{font-weight:800;color:#d65383;font-size:17px}
-
-/* Bucket List */
 .progress-area{margin:18px 0 22px}
-.progress-label{
-  display:flex;justify-content:space-between;gap:10px;
-  font-size:13px;font-weight:700;margin-bottom:9px;color:#98506d
-}
+.progress-label{display:flex;justify-content:space-between;gap:10px;font-size:13px;font-weight:700;margin-bottom:9px;color:#98506d}
 .progress-track{height:12px;background:#ffe2ec;border-radius:99px;overflow:hidden}
-#progress-bar{
-  height:100%;width:0%;
-  background:linear-gradient(90deg,#f58bb0,#e94d87);
-  border-radius:99px;transition:width .5s
-}
+#progress-bar{height:100%;width:0%;background:linear-gradient(90deg,#f58bb0,#e94d87);border-radius:99px;transition:width .5s}
 .bucket-list{display:grid;gap:10px}
-.bucket-item{
-  display:flex;align-items:center;gap:12px;padding:14px;
-  border-radius:17px;border:1px solid #f7dce6;
-  background:#fffafd;cursor:pointer;user-select:none;
-  transition:transform .2s,background .2s
-}
+.bucket-item{display:flex;align-items:center;gap:12px;padding:14px;border-radius:17px;border:1px solid #f7dce6;background:#fffafd;cursor:pointer;user-select:none;transition:transform .2s,background .2s}
 .bucket-item:active{transform:scale(.98)}
 .bucket-item.done{background:#ffedf4;border-color:#f4b6cd}
-.bucket-item input{
-  appearance:none;flex-shrink:0;width:25px;height:25px;
-  border:2px solid #e6a2ba;border-radius:8px;
-  background:white;cursor:pointer;position:relative
-}
-.bucket-item input:checked{
-  background:#f06292;border-color:#f06292;
-  animation:pop .3s
-}
-.bucket-item input:checked::after{
-  content:"✓";position:absolute;color:white;font-size:18px;
-  font-weight:900;left:4px;top:-1px
-}
+.bucket-item input{appearance:none;flex-shrink:0;width:25px;height:25px;border:2px solid #e6a2ba;border-radius:8px;background:white;cursor:pointer;position:relative}
+.bucket-item input:checked{background:#f06292;border-color:#f06292;animation:pop .3s}
+.bucket-item input:checked::after{content:"✓";position:absolute;color:white;font-size:18px;font-weight:900;left:4px;top:-1px}
 .bucket-text{font-size:14px;line-height:1.45;flex:1}
-.bucket-item.done .bucket-text{
-  text-decoration:line-through;color:#b78599
-}
-#toast{
-  position:fixed;left:50%;bottom:24px;
-  transform:translate(-50%,30px);opacity:0;
-  background:#873d60;color:white;padding:13px 20px;
-  border-radius:18px;font-size:14px;font-weight:700;
-  text-align:center;width:max-content;max-width:90%;
-  pointer-events:none;z-index:100;
-  transition:opacity .25s,transform .25s;
-  box-shadow:0 8px 25px #873d6033
-}
+.bucket-item.done .bucket-text{text-decoration:line-through;color:#b78599}
+#toast{position:fixed;left:50%;bottom:24px;transform:translate(-50%,30px);opacity:0;background:#873d60;color:white;padding:13px 20px;border-radius:18px;font-size:14px;font-weight:700;text-align:center;width:max-content;max-width:90%;pointer-events:none;z-index:100;transition:opacity .25s,transform .25s;box-shadow:0 8px 25px #873d6033}
 #toast.show{opacity:1;transform:translate(-50%,0)}
-.heart{
-  position:fixed;bottom:-30px;pointer-events:none;
-  animation:floatUp linear forwards;z-index:101
-}
-@keyframes bounce{
-  0%,100%{transform:translateY(0) rotate(-3deg)}
-  50%{transform:translateY(-8px) rotate(3deg)}
-}
+.heart{position:fixed;bottom:-30px;pointer-events:none;animation:floatUp linear forwards;z-index:101}
+.section-heading-row{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.add-button{width:44px;height:44px;flex-shrink:0;padding:0;background:#f06292;color:white;font-size:28px;border-radius:14px;box-shadow:0 4px 0 #d94e7c}
+.add-form,.message-form{display:grid;gap:10px;margin:16px 0}
+.add-form input,.message-form input,.message-form textarea{width:100%;min-width:0;font:inherit;color:#74334e;border:1px solid #f0c8d8;border-radius:13px;padding:12px;background:#fffafd;outline-color:#f06292}
+.add-form button,.message-form button{background:#f06292;color:white}
+.message-form textarea{min-height:100px;resize:vertical}
+.messages{display:grid;gap:12px;margin-top:18px}
+.message-card{background:#fffafd;border:1px solid #f7dce6;border-radius:17px;padding:15px}
+.message-meta{display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;margin-bottom:8px;font-size:12px;color:#b07890}
+.message-author{font-size:14px;font-weight:800;color:#a94c72}
+.message-body{white-space:pre-wrap;overflow-wrap:anywhere;line-height:1.5}
+.status-text{font-size:13px;color:#a36b82;margin:10px 0}
+@keyframes bounce{0%,100%{transform:translateY(0) rotate(-3deg)}50%{transform:translateY(-8px) rotate(3deg)}}
 @keyframes pop{50%{transform:scale(1.25) rotate(-8deg)}}
-@keyframes floatUp{
-  to{transform:translateY(-110vh) rotate(360deg);opacity:0}
-}
-@media(max-width:380px){
-  .panel{padding:17px}
-  .bucket-item{padding:12px 10px}
-  .bucket-text{font-size:13px}
-}
-@media(prefers-reduced-motion:reduce){
-  *,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}
-}
+@keyframes floatUp{to{transform:translateY(-110vh) rotate(360deg);opacity:0}}
+@media(max-width:380px){.panel{padding:17px}.bucket-item{padding:12px 10px}.bucket-text{font-size:13px}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
 </style>
 </head>
 
 <body>
-
-<!-- STARTSEITE: Ja/Nein-Prinzip bleibt erhalten -->
 <div class="center" id="start">
   <main class="card">
     <section id="question">
       <div class="bear">🥹💗</div>
       <h1>Emily, magst du mich?</h1>
-      <p>Überleg dir deine Antwort gut ...<br>
-      Ich schaue ganz genau hin! 👀</p>
+      <p>Überleg dir deine Antwort gut ...<br>Ich schaue ganz genau hin! 👀</p>
       <div class="buttons">
         <button id="yes">Ja ❤️</button>
         <button id="no">Nein 🙈</button>
@@ -185,23 +94,19 @@ button{
     <section id="success" class="hidden">
       <div class="bear">🥰💋</div>
       <h1>WUSSTE ICH ES DOCH!</h1>
-      <p>Ich hab dich auch lieb, Emily! 💗<br><br>
-      Du bist die Süßeste.<br>Ganz viele Küsse von deinem Emre. 💋</p>
+      <p>Ich hab dich auch lieb, Emily! 💗<br><br>Du bist die Süßeste.<br>Ganz viele Küsse von deinem Emre. 💋</p>
       <div style="font-size:35px">💗💕💖💗💕</div>
-      <button class="primary" onclick="openWorld()" style="margin-top:20px">
-        Weiter geht's → 💌
-      </button>
+      <button class="primary" onclick="openWorld()" style="margin-top:20px">Weiter geht's → 💌</button>
     </section>
   </main>
 </div>
 
-<!-- HAUPTMENÜ -->
 <div id="world" class="hidden">
   <div class="container">
     <header class="top">
       <div class="bear">🐻💗</div>
       <h1>Emre ♡ Emily</h1>
-      Schön, dass es dich gibt, Emily. 🥹</p>
+      <p>Schön, dass es dich gibt, Emily. 🥹</p>
     </header>
 
     <section id="menu">
@@ -209,65 +114,66 @@ button{
         <h2 class="section-title">Was machen wir heute? ✨</h2>
         <p class="muted">Du hast zwei wichtige Missionen.</p>
         <div class="menu-buttons">
-          <button class="menu-button" onclick="showPage('letterPage')">
-            <span class="emoji">💌</span>
-            Eine Nachricht
-            <small>Nur für dich, Emily</small>
-          </button>
-          <button class="menu-button" onclick="showPage('bucketPage')">
-            <span class="emoji">✨</span>
-            Unsere Bucket List
-            <small id="menuProgress">0 von 19 erledigt</small>
-          </button>
+          <button class="menu-button" onclick="showPage('letterPage')"><span class="emoji">💌</span>Eine Nachricht<small>Nur für dich, Emily</small></button>
+          <button class="menu-button" onclick="showPage('bucketPage')"><span class="emoji">✨</span>Unsere Bucket List<small id="menuProgress">0 von 19 erledigt</small></button>
         </div>
       </div>
-      <p style="text-align:center;font-size:12px">
-        Mit ganz viel Mühe gebaut von Emre ♡
-      </p>
+      <p style="text-align:center;font-size:12px">Mit ganz viel Mühe gebaut von Emre ♡</p>
     </section>
 
-    <!-- PERSÖNLICHE NACHRICHT -->
     <section id="letterPage" class="hidden">
       <button class="back-button" onclick="showPage('menu')">← Zurück</button>
       <div class="panel">
         <div class="letter">
           <div class="big-heart">💌</div>
           <h2 class="section-title">Für Emily</h2>
-          <p><strong>Ich mag dich richtig viel.<br>
-          Das hab ich nur für dich gebaut &lt;3</strong></p>
+          <p><strong>Ich mag dich richtig viel.<br>Das hab ich nur für dich gebaut &lt;3</strong></p>
           <div style="font-size:30px;margin:20px">🥹 💗 🫶</div>
           <div class="signature">Dein Emre ♡</div>
         </div>
       </div>
+
+      <div class="panel">
+        <h2 class="section-title">Nachrichten füreinander 💌</h2>
+        <p class="muted">Kleine Nachrichten, die bleiben. 💗</p>
+        <form id="messageForm" class="message-form">
+          <input id="messageName" maxlength="40" placeholder="Dein Name (z. B. Emre)" autocomplete="name" required>
+          <textarea id="messageText" maxlength="2000" placeholder="Schreib eine Nachricht für den anderen …" required></textarea>
+          <button type="submit">Nachricht hinterlassen 💌</button>
+        </form>
+        <p id="messageStatus" class="status-text" aria-live="polite">Nachrichten werden geladen …</p>
+        <div id="messages" class="messages"></div>
+      </div>
     </section>
 
-    <!-- BUCKET LIST -->
     <section id="bucketPage" class="hidden">
       <button class="back-button" onclick="showPage('menu')">← Zurück</button>
       <div class="panel">
-        <h2 class="section-title">Unsere Bucket List 📝</h2>
-        <p class="muted">
-          19 Missionen für Emre & Emily.<br>
-          Zusammen abhaken macht doppelt Spaß. 💗
-        </p>
+        <div class="section-heading-row">
+          <h2 class="section-title">Unsere Bucket List 📝</h2>
+          <button id="toggleAddForm" class="add-button" type="button" aria-label="Aktivität hinzufügen">+</button>
+        </div>
+        <p class="muted">19 Missionen für Emre & Emily.<br>Zusammen abhaken macht doppelt Spaß. 💗</p>
+
+        <form id="addActivityForm" class="add-form hidden">
+          <input id="newActivity" maxlength="180" placeholder="Neue gemeinsame Mission …" required>
+          <button type="submit">Hinzufügen 💗</button>
+        </form>
+        <p id="bucketStatus" class="status-text" aria-live="polite">Bucket List wird geladen …</p>
 
         <div class="progress-area">
           <div class="progress-label">
             <span id="progress-text">Noch nichts erledigt 👀</span>
             <span id="progress-count">0/19</span>
           </div>
-          <div class="progress-track">
-            <div id="progress-bar"></div>
-          </div>
+          <div class="progress-track"><div id="progress-bar"></div></div>
         </div>
 
         <div id="bucketList" class="bucket-list"></div>
-
         <div id="allDone" class="hidden" style="text-align:center;padding-top:24px">
           <div style="font-size:55px">🏆💗🎉</div>
           <h2>ALLES ERLEDIGT?!</h2>
-          <p>Ihr habt offiziell keine Ausreden mehr.<br>
-          Zeit für neue gemeinsame Abenteuer! 😂</p>
+          <p>Ihr habt offiziell keine Ausreden mehr.<br>Zeit für neue gemeinsame Abenteuer! 😂</p>
         </div>
       </div>
     </section>
@@ -276,66 +182,76 @@ button{
 
 <div id="toast" role="status" aria-live="polite"></div>
 
-<script>
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-app.js";
+import {
+  getDatabase, ref, onValue, push, set, runTransaction
+} from "https://www.gstatic.com/firebasejs/11.10.0/firebase-database.js";
+
+/* Firebase-Konfiguration */
+const firebaseConfig = {
+  apiKey: "AIzaSyCAIZ7IkdZ0zXvKehgZBNO6XUErTIxYm_o",
+  authDomain: "emreemilybucketlist.firebaseapp.com",
+  databaseURL: "https://emreemilybucketlist-default-rtdb.europe-west1.firebasedatabase.app",
+  projectId: "emreemilybucketlist",
+  storageBucket: "emreemilybucketlist.firebasestorage.app",
+  messagingSenderId: "680300274030",
+  appId: "1:680300274030:web:828a0fdcf4f18bd73e617f"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getDatabase(app);
+
+/* Startseite: Nein-Button läuft weg */
 const noButton = document.getElementById("no");
-const yesButton = document.getElementById("yes");
 const question = document.getElementById("question");
 const success = document.getElementById("success");
-
 let attempts = 0;
 
 function moveNoButton() {
   noButton.classList.add("running");
-
   const margin = 15;
-  const maxX = Math.max(margin, window.innerWidth - noButton.offsetWidth - margin);
-  const maxY = Math.max(margin, window.innerHeight - noButton.offsetHeight - margin);
-
-  let x, y;
+  const maxX = Math.max(margin, innerWidth - noButton.offsetWidth - margin);
+  const maxY = Math.max(margin, innerHeight - noButton.offsetHeight - margin);
   const old = noButton.getBoundingClientRect();
+  let x, y;
 
   do {
     x = margin + Math.random() * Math.max(0, maxX - margin);
     y = margin + Math.random() * Math.max(0, maxY - margin);
-  } while (
-    Math.abs(x - old.left) < 120 &&
-    Math.abs(y - old.top) < 80
-  );
+  } while (Math.abs(x - old.left) < 120 && Math.abs(y - old.top) < 80);
 
   noButton.style.left = x + "px";
   noButton.style.top = y + "px";
-
   attempts++;
   if (attempts === 3) noButton.textContent = "Hihi 😝";
   else if (attempts === 6) noButton.textContent = "Erwischt mich nie 😂";
   else if (attempts >= 9) noButton.textContent = "Gib auf 🙈";
 }
 
-noButton.addEventListener("pointerenter", event => {
-  if (event.pointerType === "mouse") moveNoButton();
+noButton.addEventListener("pointerenter", e => {
+  if (e.pointerType === "mouse") moveNoButton();
 });
-noButton.addEventListener("pointerdown", event => {
-  event.preventDefault();
+noButton.addEventListener("pointerdown", e => {
+  e.preventDefault();
   moveNoButton();
 });
-noButton.addEventListener("click", event => {
-  event.preventDefault();
+noButton.addEventListener("click", e => {
+  e.preventDefault();
   moveNoButton();
 });
 
-yesButton.addEventListener("click", () => {
+document.getElementById("yes").addEventListener("click", () => {
   question.classList.add("hidden");
   success.classList.remove("hidden");
-  for (let i = 0; i < 45; i++) {
-    setTimeout(createHeart, i * 65);
-  }
+  for (let i = 0; i < 45; i++) setTimeout(createHeart, i * 65);
 });
 
 window.addEventListener("resize", () => {
   if (!noButton.classList.contains("running")) return;
   const r = noButton.getBoundingClientRect();
-  noButton.style.left = Math.max(10, Math.min(r.left, window.innerWidth - noButton.offsetWidth - 10)) + "px";
-  noButton.style.top = Math.max(10, Math.min(r.top, window.innerHeight - noButton.offsetHeight - 10)) + "px";
+  noButton.style.left = Math.max(10, Math.min(r.left, innerWidth - noButton.offsetWidth - 10)) + "px";
+  noButton.style.top = Math.max(10, Math.min(r.top, innerHeight - noButton.offsetHeight - 10)) + "px";
 });
 
 function createHeart() {
@@ -350,23 +266,22 @@ function createHeart() {
   setTimeout(() => heart.remove(), 5500);
 }
 
-/* Navigation */
-function openWorld() {
+window.openWorld = function() {
   document.getElementById("start").classList.add("hidden");
   document.getElementById("world").classList.remove("hidden");
   showPage("menu");
   window.scrollTo(0, 0);
-}
+};
 
-function showPage(pageId) {
+window.showPage = function(pageId) {
   ["menu", "letterPage", "bucketPage"].forEach(id => {
     document.getElementById(id).classList.toggle("hidden", id !== pageId);
   });
   window.scrollTo({top: 0, behavior: "smooth"});
-}
+};
 
-/* Unsere 19 Bucket-List-Missionen */
-const activities = [
+/* Eure originalen 19 Aktivitäten */
+const defaultActivities = [
   "Bei Lolu’s essen gehen",
   "Date im geheimnisvollen Bougee Restaurant in Neudorf",
   "In Prag Baumstriezeln essen",
@@ -388,16 +303,6 @@ const activities = [
   "Date im türkischen Restaurant"
 ];
 
-const storageKey = "emreEmilyBucketListV1";
-let checkedItems = {};
-
-try {
-  checkedItems = JSON.parse(localStorage.getItem(storageKey) || "{}") || {};
-} catch (error) {
-  checkedItems = {};
-}
-
-const list = document.getElementById("bucketList");
 const funnyMessages = [
   "MISSION ERFÜLLT! Ihr seid ja richtig produktiv 😂",
   "Ein weiterer Punkt weniger. Emre ist stolz. 🫡",
@@ -409,72 +314,14 @@ const funnyMessages = [
   "POV: Ihr zieht eure Pläne tatsächlich durch 😂"
 ];
 
-function saveProgress() {
-  try {
-    localStorage.setItem(storageKey, JSON.stringify(checkedItems));
-  } catch (error) {
-    // Die Liste funktioniert auch ohne lokalen Speicher.
-  }
-}
-
-function renderList() {
-  list.innerHTML = "";
-
-  activities.forEach((activity, index) => {
-    const label = document.createElement("label");
-    label.className = "bucket-item";
-    label.classList.toggle("done", !!checkedItems[index]);
-
-    const checkbox = document.createElement("input");
-    checkbox.type = "checkbox";
-    checkbox.checked = !!checkedItems[index];
-    checkbox.setAttribute("aria-label", activity);
-
-    const text = document.createElement("span");
-    text.className = "bucket-text";
-    text.textContent = activity;
-
-    checkbox.addEventListener("change", () => {
-      checkedItems[index] = checkbox.checked;
-      saveProgress();
-      renderList();
-
-      if (checkbox.checked) {
-        showToast(funnyMessages[Math.floor(Math.random() * funnyMessages.length)]);
-        for (let i = 0; i < 9; i++) {
-          setTimeout(createHeart, i * 100);
-        }
-      } else {
-        showToast("Mission wieder offen! Zweite Chance 😈");
-      }
-    });
-
-    label.append(checkbox, text);
-    list.appendChild(label);
-  });
-
-  const count = activities.filter((_, i) => !!checkedItems[i]).length;
-  const percent = Math.round(count / activities.length * 100);
-
-  document.getElementById("progress-count").textContent =
-    count + "/" + activities.length;
-  document.getElementById("progress-bar").style.width = percent + "%";
-  document.getElementById("menuProgress").textContent =
-    count + " von " + activities.length + " erledigt";
-
-  document.getElementById("progress-text").textContent =
-    count === 0 ? "Noch nichts erledigt 👀" :
-    count === activities.length ? "ALLES GESCHAFFT! 🏆" :
-    count >= 10 ? "Ihr seid nicht mehr aufzuhalten! 🔥" :
-    count >= 5 ? "Läuft bei euch! 💗" :
-    "Der Anfang ist gemacht! ✨";
-
-  document.getElementById("allDone").classList.toggle(
-    "hidden", count !== activities.length
-  );
-}
-
+let activities = [];
+let checkedItems = {};
+let activitiesReady = false;
+let checkedReady = false;
 let toastTimeout;
+
+const list = document.getElementById("bucketList");
+const bucketStatus = document.getElementById("bucketStatus");
 
 function showToast(message) {
   const toast = document.getElementById("toast");
@@ -484,7 +331,240 @@ function showToast(message) {
   toastTimeout = setTimeout(() => toast.classList.remove("show"), 2400);
 }
 
-renderList();
+/* Einmalig die Ausgangsliste anlegen, falls sie noch nicht existiert */
+const activitiesRef = ref(db, "bucketList/activities");
+
+runTransaction(activitiesRef, current => {
+  if (current !== null) return;
+  const initial = {};
+  defaultActivities.forEach((text, i) => {
+    initial["default-" + i] = {text, createdAt: i};
+  });
+  return initial;
+}).catch(error => {
+  bucketStatus.textContent = "Fehler beim Einrichten der Liste. Firebase-Regeln prüfen.";
+  console.error(error);
+});
+
+/* Bereits vorhandene lokale Häkchen beim ersten Start übernehmen */
+let oldLocal = {};
+try {
+  oldLocal = JSON.parse(localStorage.getItem("emreEmilyBucketListV1") || "{}") || {};
+} catch (_) {}
+
+const checkedRef = ref(db, "bucketList/checked");
+runTransaction(checkedRef, current => {
+  if (current !== null) return;
+  const migrated = {};
+  defaultActivities.forEach((_, i) => {
+    if (oldLocal[i]) migrated["default-" + i] = true;
+  });
+  return migrated;
+}).catch(error => console.error("Progress migration:", error));
+
+/* Gemeinsame Liste live beobachten */
+onValue(activitiesRef, snapshot => {
+  const data = snapshot.val() || {};
+  activities = Object.entries(data)
+    .filter(([, item]) => item && typeof item.text === "string")
+    .map(([id, item]) => ({
+      id,
+      text: item.text,
+      createdAt: Number(item.createdAt) || 0
+    }))
+    .sort((a, b) => a.createdAt - b.createdAt || a.id.localeCompare(b.id));
+
+  activitiesReady = true;
+  bucketStatus.textContent = "Gemeinsam synchronisiert 💗";
+  renderList();
+}, error => {
+  bucketStatus.textContent = "Liste konnte nicht geladen werden. Firebase-Regeln prüfen.";
+  console.error(error);
+});
+
+/* Gemeinsame Häkchen live beobachten */
+onValue(checkedRef, snapshot => {
+  checkedItems = snapshot.val() || {};
+  checkedReady = true;
+  renderList();
+}, error => {
+  bucketStatus.textContent = "Fortschritt konnte nicht geladen werden.";
+  console.error(error);
+});
+
+function renderList() {
+  if (!activitiesReady || !checkedReady) return;
+
+  list.innerHTML = "";
+
+  activities.forEach(activity => {
+    const label = document.createElement("label");
+    label.className = "bucket-item";
+    label.classList.toggle("done", !!checkedItems[activity.id]);
+
+    const checkbox = document.createElement("input");
+    checkbox.type = "checkbox";
+    checkbox.checked = !!checkedItems[activity.id];
+    checkbox.setAttribute("aria-label", activity.text);
+
+    checkbox.addEventListener("change", async () => {
+      const isChecked = checkbox.checked;
+      checkbox.disabled = true;
+      try {
+        await set(ref(db, "bucketList/checked/" + activity.id), isChecked);
+        if (isChecked) {
+          showToast(funnyMessages[Math.floor(Math.random() * funnyMessages.length)]);
+          for (let i = 0; i < 9; i++) setTimeout(createHeart, i * 100);
+        } else {
+          showToast("Mission wieder offen! Zweite Chance 😈");
+        }
+      } catch (error) {
+        showToast("Speichern hat nicht geklappt. 😕");
+        console.error(error);
+      } finally {
+        checkbox.disabled = false;
+      }
+    });
+
+    const text = document.createElement("span");
+    text.className = "bucket-text";
+    text.textContent = activity.text;
+    label.append(checkbox, text);
+    list.appendChild(label);
+  });
+
+  const count = activities.filter(a => !!checkedItems[a.id]).length;
+  const total = activities.length;
+  const percent = total ? Math.round(count / total * 100) : 0;
+
+  document.getElementById("progress-count").textContent = count + "/" + total;
+  document.getElementById("progress-bar").style.width = percent + "%";
+  document.getElementById("menuProgress").textContent = count + " von " + total + " erledigt";
+
+  document.getElementById("progress-text").textContent =
+    count === 0 ? "Noch nichts erledigt 👀" :
+    count === total ? "ALLES GESCHAFFT! 🏆" :
+    count >= 10 ? "Ihr seid nicht mehr aufzuhalten! 🔥" :
+    count >= 5 ? "Läuft bei euch! 💗" :
+    "Der Anfang ist gemacht! ✨";
+
+  document.getElementById("allDone").classList.toggle("hidden", total === 0 || count !== total);
+}
+
+/* Neue Aktivität hinzufügen */
+const addForm = document.getElementById("addActivityForm");
+const newActivityInput = document.getElementById("newActivity");
+
+document.getElementById("toggleAddForm").addEventListener("click", () => {
+  addForm.classList.toggle("hidden");
+  if (!addForm.classList.contains("hidden")) newActivityInput.focus();
+});
+
+addForm.addEventListener("submit", async event => {
+  event.preventDefault();
+  const text = newActivityInput.value.trim();
+  if (!text) return;
+
+  const button = addForm.querySelector("button");
+  button.disabled = true;
+
+  try {
+    await set(push(activitiesRef), {text, createdAt: Date.now()});
+    newActivityInput.value = "";
+    addForm.classList.add("hidden");
+    showToast("Neue Mission hinzugefügt! 💗");
+  } catch (error) {
+    showToast("Eintrag konnte nicht gespeichert werden. 😕");
+    console.error(error);
+  } finally {
+    button.disabled = false;
+  }
+});
+
+/* Gemeinsames Nachrichtenbuch */
+const messagesRef = ref(db, "messages");
+const messagesContainer = document.getElementById("messages");
+const messageStatus = document.getElementById("messageStatus");
+
+onValue(messagesRef, snapshot => {
+  renderMessages(snapshot.val() || {});
+  messageStatus.textContent = "Gemeinsames Nachrichtenbuch 💗";
+}, error => {
+  messageStatus.textContent = "Nachrichten konnten nicht geladen werden. Firebase-Regeln prüfen.";
+  console.error(error);
+});
+
+function renderMessages(data) {
+  messagesContainer.innerHTML = "";
+
+  const ordered = Object.values(data)
+    .filter(message => message && typeof message.text === "string")
+    .sort((a, b) => (Number(b.timestamp) || 0) - (Number(a.timestamp) || 0));
+
+  if (!ordered.length) {
+    const empty = document.createElement("p");
+    empty.className = "muted";
+    empty.textContent = "Noch keine Nachrichten. Wer fängt an? 🥹";
+    messagesContainer.appendChild(empty);
+    return;
+  }
+
+  ordered.forEach(message => {
+    const card = document.createElement("article");
+    card.className = "message-card";
+
+    const meta = document.createElement("div");
+    meta.className = "message-meta";
+
+    const author = document.createElement("span");
+    author.className = "message-author";
+    author.textContent = message.name || "Unbekannt";
+
+    const date = document.createElement("time");
+    const timestamp = Number(message.timestamp);
+    date.textContent = Number.isFinite(timestamp)
+      ? new Intl.DateTimeFormat("de-DE", {dateStyle:"medium", timeStyle:"short"}).format(new Date(timestamp))
+      : "Zeit unbekannt";
+
+    const body = document.createElement("div");
+    body.className = "message-body";
+    body.textContent = message.text;
+
+    meta.append(author, date);
+    card.append(meta, body);
+    messagesContainer.appendChild(card);
+  });
+}
+
+document.getElementById("messageForm").addEventListener("submit", async event => {
+  event.preventDefault();
+
+  const nameInput = document.getElementById("messageName");
+  const textInput = document.getElementById("messageText");
+  const name = nameInput.value.trim();
+  const text = textInput.value.trim();
+  if (!name || !text) return;
+
+  const button = event.currentTarget.querySelector("button");
+  button.disabled = true;
+  button.textContent = "Wird gespeichert …";
+
+  try {
+    await set(push(messagesRef), {
+      name: name.slice(0, 40),
+      text: text.slice(0, 2000),
+      timestamp: Date.now()
+    });
+    textInput.value = "";
+    showToast("Nachricht hinterlassen 💌");
+  } catch (error) {
+    messageStatus.textContent = "Nachricht konnte nicht gespeichert werden. Firebase-Regeln prüfen.";
+    console.error(error);
+  } finally {
+    button.disabled = false;
+    button.textContent = "Nachricht hinterlassen 💌";
+  }
+});
 </script>
 </body>
 </html>

@@ -85,9 +85,10 @@ button{font-size:16px;font-weight:700;border:0;border-radius:16px;padding:14px 2
 /* Weltkarte */
 #travelMap{width:100%;height:430px;border-radius:17px;border:1px solid #f7dce6;z-index:1}
 .map-form{display:grid;gap:10px;margin-top:16px}
-.map-form input[type="text"],.map-form textarea{width:100%;min-width:0;font:inherit;color:#74334e;border:1px solid #f0c8d8;border-radius:13px;padding:12px;background:#fffafd;outline-color:#f06292}
+.map-form input[type="text"],.map-form input[type="date"],.map-form textarea{width:100%;min-width:0;font:inherit;color:#74334e;border:1px solid #f0c8d8;border-radius:13px;padding:12px;background:#fffafd;outline-color:#f06292}
 .map-form textarea{min-height:75px;resize:vertical}
 .map-form input[type="file"]{width:100%;font-size:13px;color:#74334e}
+.map-form input[type="date"]{width:100%;min-width:0;font:inherit;color:#74334e;border:1px solid #f0c8d8;border-radius:13px;padding:12px;background:#fffafd;outline-color:#f06292}
 .map-form button{background:#f06292;color:white}
 .map-hint{font-size:13px;color:#a36b82;margin:12px 0}
 
@@ -121,6 +122,7 @@ button{font-size:16px;font-weight:700;border:0;border-radius:16px;padding:14px 2
   font-size:11px;
   color:#a36b82;
   margin-top:9px;
+  line-height:1.5;
 }
 .map-marker{font-size:27px;line-height:32px;text-align:center}
 .map-form .secondary-button{background:#ffe1ec;color:#974c6c;box-shadow:none}
@@ -141,6 +143,32 @@ button{font-size:16px;font-weight:700;border:0;border-radius:16px;padding:14px 2
   margin:14px 16px;
 }
 
+/* Digitaler Garten */
+.garden-intro{margin-bottom:14px}
+.garden-stats{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0}
+.garden-stat{background:#fff0f6;border:1px solid #f6d3e1;border-radius:13px;padding:9px 12px;font-size:12px;font-weight:800;color:#98506d}
+.garden-scene{position:relative;width:100%;aspect-ratio:1.45;min-height:280px;overflow:hidden;border-radius:22px;border:3px solid #fff;box-shadow:inset 0 0 0 1px #d8edc7;background:linear-gradient(#bce8f5 0 42%,#8bd2e9 42% 100%);isolation:isolate;cursor:crosshair;touch-action:manipulation;user-select:none}
+.garden-sun{position:absolute;top:7%;right:10%;width:48px;height:48px;border-radius:50%;background:#ffe88b;box-shadow:0 0 0 10px #fff3ad55,0 0 35px #fff4b4}
+.garden-cloud{position:absolute;top:12%;left:12%;font-size:35px;opacity:.8;pointer-events:none}
+.garden-island{position:absolute;left:5%;right:5%;top:23%;bottom:-18%;border-radius:48% 48% 0 0 / 34% 34% 0 0;background:linear-gradient(135deg,#b8df91,#8dc977 60%,#75b866);border:8px solid #6db5b4;box-shadow:0 -5px 0 #d6f1e5}
+.garden-path{position:absolute;left:25%;top:38%;width:54%;height:58%;border:18px solid #e8d6a5;border-bottom:0;border-radius:50% 50% 0 0;transform:rotate(-8deg);opacity:.95;pointer-events:none}
+.garden-object{position:absolute;z-index:2;transform:translate(-50%,-50%);font-size:clamp(23px,5vw,39px);filter:drop-shadow(0 3px 2px #436f3540);transition:opacity .3s,transform .3s;pointer-events:none}
+.garden-object.locked{opacity:.16;filter:grayscale(1)}
+.garden-object.unlocked{animation:gardenPop .55s ease both}
+.garden-player{position:absolute;left:50%;top:66%;z-index:5;transform:translate(-50%,-50%);font-size:32px;filter:drop-shadow(0 3px 2px #436f3540);transition:left 1s cubic-bezier(.2,.7,.25,1),top 1s cubic-bezier(.2,.7,.25,1);pointer-events:none}
+.garden-player.walking{animation:gardenWalk .22s ease-in-out infinite alternate}
+.garden-locked-region{position:absolute;z-index:3;right:0;top:0;width:31%;height:45%;display:flex;align-items:center;justify-content:center;text-align:center;padding:7px;background:linear-gradient(135deg,#ffffffb8,#dce6e5bd);backdrop-filter:blur(2px);border-bottom-left-radius:22px;color:#6f6570;font-size:11px;font-weight:800;line-height:1.4;cursor:pointer}
+.garden-locked-region.unlocked{display:none}
+.garden-caption{font-size:12px;color:#a36b82;margin:12px 0 0;text-align:center}
+.garden-achievements{display:grid;gap:8px;margin-top:16px}
+.garden-achievement{display:flex;align-items:center;gap:10px;padding:11px 12px;background:#fffafd;border:1px solid #f7dce6;border-radius:14px;font-size:13px}
+.garden-achievement .achievement-icon{font-size:22px;min-width:28px;text-align:center}
+.garden-achievement.locked{opacity:.62}
+.garden-achievement strong{display:block;color:#8e3e60;margin-bottom:2px}
+.garden-achievement small{color:#a36b82;line-height:1.4}
+@keyframes gardenWalk{from{margin-top:-2px}to{margin-top:3px}}
+@keyframes gardenPop{0%{transform:translate(-50%,-50%) scale(.2)}70%{transform:translate(-50%,-50%) scale(1.2)}100%{transform:translate(-50%,-50%) scale(1)}}
+
 /* Jahrestag-Popup */
 .modal-overlay{position:fixed;inset:0;background:rgba(76,31,51,.42);display:flex;align-items:center;justify-content:center;padding:22px;z-index:1000}
 .modal-card{width:min(100%,370px);background:rgba(255,255,255,.97);border:2px solid white;border-radius:25px;padding:28px 22px;text-align:center;box-shadow:0 15px 50px #74334e35;animation:pop .3s}
@@ -150,7 +178,16 @@ button{font-size:16px;font-weight:700;border:0;border-radius:16px;padding:14px 2
 @keyframes bounce{0%,100%{transform:translateY(0) rotate(-3deg)}50%{transform:translateY(-8px) rotate(3deg)}}
 @keyframes pop{50%{transform:scale(1.08)}}
 @keyframes floatUp{to{transform:translateY(-110vh) rotate(360deg);opacity:0}}
-@media(max-width:380px){.panel{padding:17px}.bucket-item{padding:12px 10px}.bucket-text{font-size:13px}.photo-controls{gap:6px}.photo-controls button{padding:11px 12px;font-size:14px}#travelMap{height:350px}}
+@media(max-width:380px){
+  .panel{padding:17px}
+  .bucket-item{padding:12px 10px}
+  .bucket-text{font-size:13px}
+  .photo-controls{gap:6px}
+  .photo-controls button{padding:11px 12px;font-size:14px}
+  #travelMap{height:350px}
+  .garden-scene{min-height:250px}
+  .garden-locked-region{font-size:10px;width:34%}
+}
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
 </style>
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
@@ -195,6 +232,7 @@ button{font-size:16px;font-weight:700;border:0;border-radius:16px;padding:14px 2
           <button class="menu-button" onclick="showPage('bucketPage')"><span class="emoji">✨</span>Unsere Bucket List<small id="menuProgress">0 von 19 erledigt</small></button>
           <button class="menu-button" onclick="showPage('photoPage')"><span class="emoji">📸</span>Unser Fotoalbum<small>Unsere Erinnerungen 💗</small></button>
           <button class="menu-button" onclick="showPage('mapPage')"><span class="emoji">🌍</span>Unsere Weltkarte<small>Orte und Erinnerungen</small></button>
+          <button class="menu-button" onclick="showPage('gardenPage')"><span class="emoji">🌱</span>Digitaler Garten<small>Wächst mit euren Erinnerungen</small></button>
           <button class="menu-button" onclick="openAnniversary()"><span class="emoji">💗</span>Unser Jahrestag<small>Ein kleines Extra</small></button>
         </div>
       </div>
@@ -285,6 +323,8 @@ button{font-size:16px;font-weight:700;border:0;border-radius:16px;padding:14px 2
           <h3 class="section-title">Neue Erinnerung 📍</h3>
           <p id="mapCoordinates" class="map-hint"></p>
           <input id="mapPlaceName" type="text" maxlength="80" placeholder="Name des Ortes oder Landes" required>
+          <label for="mapVisitDate" class="muted">Wann wart ihr dort? 📅</label>
+          <input id="mapVisitDate" type="date" required>
           <textarea id="mapPlaceNote" maxlength="300" placeholder="Schreibt 1–2 Sätze zu eurer Erinnerung …" required></textarea>
           <label for="mapPlacePhoto" class="muted">Euer Lieblingsfoto</label>
           <input id="mapPlacePhoto" type="file" accept="image/*" required>
@@ -293,6 +333,46 @@ button{font-size:16px;font-weight:700;border:0;border-radius:16px;padding:14px 2
         </form>
       </div>
     </section>
+
+    <section id="gardenPage" class="hidden">
+      <button class="back-button" onclick="showPage('menu')">← Zurück</button>
+      <div class="panel">
+        <h2 class="section-title">Unser Digitaler Garten 🌱</h2>
+        <p class="muted garden-intro">Ein kleiner Ort nur für euch. Jede gemeinsame Mission und jede Erinnerung lässt ihn wachsen. Tippt irgendwo auf die Insel und schaut euch um. 💗</p>
+        <div class="garden-stats">
+          <span class="garden-stat" id="gardenMissionStat">✨ 0 Missionen</span>
+          <span class="garden-stat" id="gardenMemoryStat">📍 0 Erinnerungen</span>
+        </div>
+        <div id="gardenScene" class="garden-scene" role="application" aria-label="Digitaler Garten. Tippe auf eine Stelle, um dorthin zu gehen.">
+          <div class="garden-sun"></div>
+          <div class="garden-cloud">☁️</div>
+          <div class="garden-island"></div>
+          <div class="garden-path"></div>
+          <div class="garden-object" data-x="19" data-y="63" data-milestone="flowers" aria-label="Blumen">🌷</div>
+          <div class="garden-object" data-x="35" data-y="45" data-milestone="tree" aria-label="Baum">🌳</div>
+          <div class="garden-object" data-x="70" data-y="59" data-milestone="pond" aria-label="Teich">🪷</div>
+          <div class="garden-object" data-x="82" data-y="76" data-milestone="bench" aria-label="Bank">🪑</div>
+          <div class="garden-object" data-x="55" data-y="38" data-milestone="meadow" aria-label="Blumenwiese">🌼</div>
+          <div class="garden-object" data-x="75" data-y="27" data-milestone="bridge" aria-label="Brücke">🌉</div>
+          <div class="garden-object" data-x="44" data-y="22" data-milestone="secret" aria-label="Geheimer Garten">🏡</div>
+          <div id="gardenPlayer" class="garden-player" aria-hidden="true">🐻</div>
+          <button id="gardenLockedRegion" type="button" class="garden-locked-region">🔒<br>Weitere Insel<br>freischalten</button>
+        </div>
+        <p class="garden-caption" id="gardenCaption">Tippe auf die Insel, damit Emre-Bär dorthin läuft. 🐻</p>
+        <h3 class="section-title" style="margin-top:22px">Was schon wächst 💗</h3>
+        <div id="gardenAchievements" class="garden-achievements"></div>
+      </div>
+    </section>
+  </div>
+</div>
+
+<div id="gardenUnlockModal" class="modal-overlay hidden" role="dialog" aria-modal="true" aria-labelledby="gardenUnlockTitle">
+  <div class="modal-card">
+    <div class="modal-heart" id="gardenUnlockEmoji">🌱</div>
+    <h2 id="gardenUnlockTitle" class="section-title">Neues freigeschaltet!</h2>
+    <p id="gardenUnlockText">Im Digitalen Garten wächst etwas Neues. 💗</p>
+    <button type="button" id="gardenUnlockOpen">Im Garten nachsehen 🌷</button>
+    <button type="button" class="back-button" id="gardenUnlockClose" style="margin:14px 0 0">Später 💗</button>
   </div>
 </div>
 
@@ -391,9 +471,12 @@ window.openWorld = function() {
 };
 
 window.showPage = function(pageId) {
-  ["menu", "letterPage", "bucketPage", "photoPage", "mapPage"].forEach(id => {
+  ["menu", "letterPage", "bucketPage", "photoPage", "mapPage", "gardenPage"].forEach(id => {
     document.getElementById(id).classList.toggle("hidden", id !== pageId);
   });
+  if (pageId === "gardenPage") {
+    renderGarden();
+  }
   if (pageId === "mapPage") {
     initializeTravelMap();
     setTimeout(() => {
@@ -412,6 +495,18 @@ window.closeAnniversary = function() {
 };
 document.getElementById("anniversaryModal").addEventListener("click", event => {
   if (event.target.id === "anniversaryModal") closeAnniversary();
+});
+document.getElementById("gardenUnlockOpen").addEventListener("click", () => {
+  document.getElementById("gardenUnlockModal").classList.add("hidden");
+  showPage("gardenPage");
+});
+document.getElementById("gardenUnlockClose").addEventListener("click", () => {
+  document.getElementById("gardenUnlockModal").classList.add("hidden");
+});
+document.getElementById("gardenUnlockModal").addEventListener("click", event => {
+  if (event.target.id === "gardenUnlockModal") {
+    document.getElementById("gardenUnlockModal").classList.add("hidden");
+  }
 });
 
 /* Eure originalen 19 Aktivitäten */
@@ -462,6 +557,109 @@ function showToast(message) {
   toastTimeout = setTimeout(() => toast.classList.remove("show"), 2400);
 }
 
+/* Digitaler Garten: Freischaltungen werden aus gemeinsamen Fortschritten abgeleitet */
+const gardenMilestones = [
+  {id:"flowers", type:"missions", threshold:1, icon:"🌷", title:"Die ersten Blumen", detail:"Erledigt eine gemeinsame Mission, damit die Insel aufblüht."},
+  {id:"tree", type:"missions", threshold:3, icon:"🌳", title:"Euer Erinnerungsbaum", detail:"Drei Missionen geschafft – euer Baum wächst."},
+  {id:"pond", type:"missions", threshold:5, icon:"🪷", title:"Ein kleiner Teich", detail:"Mit fünf Missionen kommt Ruhe auf die Insel."},
+  {id:"bench", type:"memories", threshold:1, icon:"🪑", title:"Eine Bank für zwei", detail:"Speichert eure erste Erinnerung auf der Weltkarte."},
+  {id:"meadow", type:"missions", threshold:10, icon:"🌼", title:"Die Blumenwiese", detail:"Zehn Missionen lassen die Wiese erblühen."},
+  {id:"bridge", type:"memories", threshold:3, icon:"🌉", title:"Die Erinnerungsbrücke", detail:"Drei Karten-Erinnerungen verbinden neue Orte."},
+  {id:"secret", type:"missions", threshold:19, icon:"🏡", title:"Das kleine Gartenhaus", detail:"Alle 19 Missionen erledigt – ein besonderer Rückzugsort."}
+];
+let gardenBaselineReady = false;
+let previousGardenUnlocked = new Set();
+
+function gardenCounts() {
+  return {
+    missions: activities.filter(activity => !!checkedItems[activity.id]).length,
+    memories: Object.keys(mapPlaces || {}).filter(id => mapPlaces[id]).length
+  };
+}
+function gardenUnlockedSet() {
+  const counts = gardenCounts();
+  return new Set(gardenMilestones.filter(item => counts[item.type] >= item.threshold).map(item => item.id));
+}
+function renderGarden() {
+  const counts = gardenCounts();
+  document.getElementById("gardenMissionStat").textContent = "✨ " + counts.missions + " Missionen";
+  document.getElementById("gardenMemoryStat").textContent = "📍 " + counts.memories + " Erinnerungen";
+  const unlocked = gardenUnlockedSet();
+  document.querySelectorAll(".garden-object[data-milestone]").forEach(object => {
+    const isUnlocked = unlocked.has(object.dataset.milestone);
+    object.classList.toggle("locked", !isUnlocked);
+    object.classList.toggle("unlocked", isUnlocked);
+    object.textContent = isUnlocked ? ({
+      flowers:"🌷", tree:"🌳", pond:"🪷", bench:"🪑", meadow:"🌼", bridge:"🌉", secret:"🏡"
+    }[object.dataset.milestone]) : "🔒";
+    object.title = isUnlocked ? "Freigeschaltet!" : "Noch nicht freigeschaltet";
+    object.style.left = object.dataset.x + "%";
+    object.style.top = object.dataset.y + "%";
+  });
+  document.getElementById("gardenLockedRegion").classList.toggle("unlocked", unlocked.has("bridge"));
+  const list = document.getElementById("gardenAchievements");
+  list.innerHTML = "";
+  gardenMilestones.forEach(milestone => {
+    const isUnlocked = unlocked.has(milestone.id);
+    const row = document.createElement("div");
+    row.className = "garden-achievement" + (isUnlocked ? "" : " locked");
+    const icon = document.createElement("span");
+    icon.className = "achievement-icon";
+    icon.textContent = isUnlocked ? milestone.icon : "🔒";
+    const content = document.createElement("div");
+    const title = document.createElement("strong");
+    title.textContent = (isUnlocked ? "Freigeschaltet: " : "Noch gesperrt: ") + milestone.title;
+    const detail = document.createElement("small");
+    detail.textContent = isUnlocked ? "Der Garten ist ein Stück gewachsen. 💗" :
+      milestone.detail + " (" + milestone.threshold + (milestone.type === "missions" ? " Missionen)" : " Erinnerungen)");
+    content.append(title, detail);
+    row.append(icon, content);
+    list.appendChild(row);
+  });
+}
+function updateGardenProgress(showUnlockPopup = true) {
+  if (!activitiesReady || !checkedReady || !mapPlacesLoaded) return;
+  const unlocked = gardenUnlockedSet();
+  if (!gardenBaselineReady) {
+    previousGardenUnlocked = unlocked;
+    gardenBaselineReady = true;
+    renderGarden();
+    return;
+  }
+  const newlyUnlocked = gardenMilestones.filter(item => unlocked.has(item.id) && !previousGardenUnlocked.has(item.id));
+  previousGardenUnlocked = unlocked;
+  renderGarden();
+  if (showUnlockPopup && newlyUnlocked.length) {
+    const milestone = newlyUnlocked[0];
+    document.getElementById("gardenUnlockEmoji").textContent = milestone.icon;
+    document.getElementById("gardenUnlockTitle").textContent = "Neues freigeschaltet!";
+    document.getElementById("gardenUnlockText").textContent =
+      milestone.title + " wächst jetzt im Digitalen Garten. Schau mal vorbei! 🌱💗" +
+      (newlyUnlocked.length > 1 ? " (Und noch " + (newlyUnlocked.length - 1) + " weitere Überraschung(en)!)" : "");
+    document.getElementById("gardenUnlockModal").classList.remove("hidden");
+  }
+}
+document.getElementById("gardenScene").addEventListener("pointerdown", event => {
+  if (event.target.closest(".garden-locked-region")) return;
+  const scene = event.currentTarget;
+  const rect = scene.getBoundingClientRect();
+  const x = Math.max(7, Math.min(93, (event.clientX - rect.left) / rect.width * 100));
+  const y = Math.max(32, Math.min(88, (event.clientY - rect.top) / rect.height * 100));
+  const player = document.getElementById("gardenPlayer");
+  player.classList.add("walking");
+  player.style.left = x + "%";
+  player.style.top = y + "%";
+  document.getElementById("gardenCaption").textContent = "Emre-Bär erkundet euren Garten … 🐻💗";
+  clearTimeout(window.gardenWalkTimeout);
+  window.gardenWalkTimeout = setTimeout(() => {
+    player.classList.remove("walking");
+    document.getElementById("gardenCaption").textContent = "Ein kleiner Schritt für den Bären, ein großer Schritt für euch. 💗";
+  }, 1050);
+});
+document.getElementById("gardenLockedRegion").addEventListener("click", () => {
+  showToast("Sammelt gemeinsame Missionen und Karten-Erinnerungen, um neue Bereiche zu öffnen! 🌱");
+});
+
 /* Einmalig die Ausgangsliste anlegen, falls sie noch nicht existiert */
 const activitiesRef = ref(db, "bucketList/activities");
 runTransaction(activitiesRef, current => {
@@ -505,6 +703,7 @@ onValue(activitiesRef, snapshot => {
   activitiesReady = true;
   bucketStatus.textContent = "Gemeinsam synchronisiert 💗";
   renderList();
+  updateGardenProgress();
 }, error => {
   bucketStatus.textContent = "Liste konnte nicht geladen werden. Firebase-Regeln prüfen.";
   console.error(error);
@@ -515,6 +714,7 @@ onValue(checkedRef, snapshot => {
   checkedItems = snapshot.val() || {};
   checkedReady = true;
   renderList();
+  updateGardenProgress();
 }, error => {
   bucketStatus.textContent = "Fortschritt konnte nicht geladen werden.";
   console.error(error);
@@ -727,6 +927,7 @@ renderAlbum();
 const mapStatus = document.getElementById("mapStatus");
 const mapForm = document.getElementById("mapForm");
 const mapPlaceName = document.getElementById("mapPlaceName");
+const mapVisitDate = document.getElementById("mapVisitDate");
 const mapPlaceNote = document.getElementById("mapPlaceNote");
 const mapPlacePhoto = document.getElementById("mapPlacePhoto");
 const mapCoordinates = document.getElementById("mapCoordinates");
@@ -763,6 +964,7 @@ function initializeTravelMap() {
     mapCoordinates.textContent =
       "Position: " + pendingMapPoint.lat + ", " + pendingMapPoint.lng;
     mapPlaceName.value = "";
+    mapVisitDate.value = new Date(Date.now() - new Date().getTimezoneOffset() * 60000).toISOString().slice(0, 10);
     mapPlaceNote.value = "";
     mapPlacePhoto.value = "";
     mapForm.classList.remove("hidden");
@@ -779,6 +981,7 @@ onValue(mapRef, snapshot => {
   mapPlaces = snapshot.val() || {};
   mapPlacesLoaded = true;
   renderMapMarkers();
+  updateGardenProgress();
   if (!Object.keys(mapPlaces).length) {
     mapStatus.textContent = "Noch keine Stecknadeln. Setzt eure erste auf der Karte! 💗";
   } else {
@@ -828,14 +1031,23 @@ function renderMapMarkers() {
         popup.appendChild(image);
       }
 
+      const dates = document.createElement("div");
+      dates.className = "map-popup-date";
+      if (place.visitedAt) {
+        const visitDate = new Date(place.visitedAt + "T12:00:00");
+        dates.textContent = "Dort gewesen: " + new Intl.DateTimeFormat("de-DE", {
+          dateStyle: "long"
+        }).format(visitDate);
+      } else {
+        dates.textContent = "Besuchsdatum: für diesen älteren Eintrag nicht hinterlegt";
+      }
       if (place.createdAt) {
-        const date = document.createElement("div");
-        date.className = "map-popup-date";
-        date.textContent = new Intl.DateTimeFormat("de-DE", {
+        const createdDate = new Intl.DateTimeFormat("de-DE", {
           dateStyle: "medium"
         }).format(new Date(place.createdAt));
-        popup.appendChild(date);
+        dates.textContent += " · Eintrag erstellt: " + createdDate;
       }
+      popup.appendChild(dates);
 
       marker.bindPopup(popup, {
         maxWidth: 260,
@@ -898,11 +1110,12 @@ mapForm.addEventListener("submit", async event => {
   }
 
   const name = mapPlaceName.value.trim();
+  const visitedAt = mapVisitDate.value;
   const note = mapPlaceNote.value.trim();
   const file = mapPlacePhoto.files && mapPlacePhoto.files[0];
 
-  if (!name || !note || !file) {
-    mapStatus.textContent = "Bitte gebt einen Ort, eine Erinnerung und ein Foto an.";
+  if (!name || !visitedAt || !note || !file) {
+    mapStatus.textContent = "Bitte gebt Ort, Besuchsdatum, Erinnerung und Foto an.";
     return;
   }
 
@@ -916,6 +1129,7 @@ mapForm.addEventListener("submit", async event => {
     const placeData = {
       name: name.slice(0, 80),
       note: note.slice(0, 300),
+      visitedAt,
       lat: pendingMapPoint.lat,
       lng: pendingMapPoint.lng,
       photo,
@@ -939,4 +1153,5 @@ mapForm.addEventListener("submit", async event => {
 });
 </script>
 </body>
+</html>
 </html>

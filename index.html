@@ -124,7 +124,9 @@ button{font-size:16px;font-weight:700;border:0;border-radius:16px;padding:14px 2
 }
 .map-marker{font-size:27px;line-height:32px;text-align:center}
 .map-form .secondary-button{background:#ffe1ec;color:#974c6c;box-shadow:none}
-.map-status{font-size:13px;color:#a36b82;margin:10px 0}
+
+/* Keine Statusmeldungen unter der Weltkarte anzeigen */
+.map-status{display:none!important}
 
 /* Schönere Leaflet-Pop-ups */
 .leaflet-popup-content-wrapper{
@@ -188,9 +190,8 @@ button{font-size:16px;font-weight:700;border:0;border-radius:16px;padding:14px 2
     <section id="menu">
       <div class="panel">
         <h2 class="section-title">Was machen wir heute? ✨</h2>
-        <p class="muted">Du hast zwei wichtige Missionen.</p>
         <div class="menu-buttons">
-          <button class="menu-button" onclick="showPage('letterPage')"><span class="emoji">💌</span>Eine Nachricht<small>Nur für dich, Emily</small></button>
+          <button class="menu-button" onclick="showPage('letterPage')"><span class="emoji">💌</span>Eine Nachricht<small>Hier können wir uns kleine Nachrichten hinterlassen ❤️</small></button>
           <button class="menu-button" onclick="showPage('bucketPage')"><span class="emoji">✨</span>Unsere Bucket List<small id="menuProgress">0 von 19 erledigt</small></button>
           <button class="menu-button" onclick="showPage('photoPage')"><span class="emoji">📸</span>Unser Fotoalbum<small>Unsere Erinnerungen 💗</small></button>
           <button class="menu-button" onclick="showPage('mapPage')"><span class="emoji">🌍</span>Unsere Weltkarte<small>Orte und Erinnerungen</small></button>
@@ -277,8 +278,7 @@ button{font-size:16px;font-weight:700;border:0;border-radius:16px;padding:14px 2
       <button class="back-button" onclick="showPage('menu')">← Zurück</button>
       <div class="panel">
         <h2 class="section-title">Unsere Weltkarte 🌍</h2>
-        <p class="muted">Setzt eine Stecknadel auf einen Ort und sammelt eure Erinnerungen. 💗</p>
-        <p class="map-hint">Tippt oder klickt auf die Karte, um einen Ort hinzuzufügen. Klickt auf eine vorhandene Stecknadel, um die Erinnerung anzusehen.</p>
+        <p class="muted">Hier können wir unsere Reisen und Erinnerungen festhalten. Du kannst einfach auf das Land oder die Stadt klicken und es wird ein Eintrag erstellen. Dazu kannst du ein paar Sätze schreiben und ein Bild hochladen. (das war scheiße schwer zu programmieren 😂)</p>
         <div id="travelMap" aria-label="Interaktive Weltkarte"></div>
         <p id="mapStatus" class="map-status" aria-live="polite"></p>
         <form id="mapForm" class="map-form hidden">
@@ -771,7 +771,6 @@ function initializeTravelMap() {
     mapPlaceName.focus();
   });
 
-  /* Kein unnötiger Text „Karte bereit“ unter der Karte */
   mapStatus.textContent = "";
   if (mapPlacesLoaded) renderMapMarkers();
 }
@@ -888,7 +887,7 @@ async function compressMapPhoto(file) {
 document.getElementById("cancelMapForm").addEventListener("click", () => {
   mapForm.classList.add("hidden");
   pendingMapPoint = null;
-  mapStatus.textContent = "Erinnerung nicht gespeichert.";
+  mapStatus.textContent = "";
 });
 
 mapForm.addEventListener("submit", async event => {
@@ -910,7 +909,7 @@ mapForm.addEventListener("submit", async event => {
   const button = mapForm.querySelector('button[type="submit"]');
   button.disabled = true;
   button.textContent = "Wird gespeichert …";
-  mapStatus.textContent = "Foto wird vorbereitet und gespeichert …";
+  mapStatus.textContent = "";
 
   try {
     const photo = await compressMapPhoto(file);
@@ -927,11 +926,12 @@ mapForm.addEventListener("submit", async event => {
     mapForm.reset();
     mapForm.classList.add("hidden");
     pendingMapPoint = null;
-    mapStatus.textContent = "Eure Erinnerung wurde gespeichert 💗";
+    mapStatus.textContent = "";
     showToast("Stecknadel gespeichert! 💗");
   } catch (error) {
     console.error("Speichern der Karten-Erinnerung:", error);
-    mapStatus.textContent = error.message || "Die Erinnerung konnte nicht gespeichert werden.";
+    mapStatus.textContent = "";
+    showToast("Die Erinnerung konnte nicht gespeichert werden. 😕");
   } finally {
     button.disabled = false;
     button.textContent = "Stecknadel speichern 💗";

@@ -5,7 +5,6 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Emre ♡ Emily</title>
-
 <style>
 *{box-sizing:border-box}
 body{margin:0;min-height:100vh;min-height:100dvh;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:linear-gradient(135deg,#ffe0ec,#fff1f5,#ffd6e5);color:#74334e}
@@ -70,7 +69,6 @@ button{font-size:16px;font-weight:700;border:0;border-radius:16px;padding:14px 2
 .message-author{font-size:14px;font-weight:800;color:#a94c72}
 .message-body{white-space:pre-wrap;overflow-wrap:anywhere;line-height:1.5}
 .status-text{font-size:13px;color:#a36b82;margin:10px 0}
-
 /* Fotoalbum */
 .photo-viewer{background:linear-gradient(135deg,#fff1f6,#ffe0ec);border-radius:20px;padding:12px;text-align:center}
 .photo-frame{display:flex;align-items:center;justify-content:center;min-height:220px;background:#fffafd;border-radius:15px;overflow:hidden}
@@ -83,14 +81,39 @@ button{font-size:16px;font-weight:700;border:0;border-radius:16px;padding:14px 2
 .photo-dots{display:flex;justify-content:center;gap:8px;margin-top:17px}
 .photo-dot{width:10px;height:10px;min-width:10px;padding:0;border-radius:50%;background:#efbfd0;box-shadow:none}
 .photo-dot.active{background:#f06292;transform:scale(1.25)}
+
+/* Neue Weltkarte */
+#travelMap{width:100%;height:430px;border-radius:17px;border:1px solid #f7dce6;z-index:1}
+.map-form{display:grid;gap:10px;margin-top:16px}
+.map-form input[type="text"],.map-form textarea{width:100%;min-width:0;font:inherit;color:#74334e;border:1px solid #f0c8d8;border-radius:13px;padding:12px;background:#fffafd;outline-color:#f06292}
+.map-form textarea{min-height:75px;resize:vertical}
+.map-form input[type="file"]{width:100%;font-size:13px;color:#74334e}
+.map-form button{background:#f06292;color:white}
+.map-hint{font-size:13px;color:#a36b82;margin:12px 0}
+.map-place-image{display:block;width:100%;max-height:220px;object-fit:cover;border-radius:10px;margin-top:10px}
+.map-popup-title{font-weight:800;color:#8e3e60;font-size:16px;margin-bottom:5px}
+.map-popup-note{white-space:pre-wrap;overflow-wrap:anywhere;color:#74334e;line-height:1.45}
+.map-popup-date{font-size:11px;color:#a36b82;margin-top:8px}
+.map-marker{font-size:27px;line-height:32px;text-align:center}
+.map-form .secondary-button{background:#ffe1ec;color:#974c6c;box-shadow:none}
+.map-status{font-size:13px;color:#a36b82;margin:10px 0}
+.leaflet-popup-content{min-width:180px;max-width:240px}
+
+/* Jahrestag-Popup */
+.modal-overlay{position:fixed;inset:0;background:rgba(76,31,51,.42);display:flex;align-items:center;justify-content:center;padding:22px;z-index:1000}
+.modal-card{width:min(100%,370px);background:rgba(255,255,255,.97);border:2px solid white;border-radius:25px;padding:28px 22px;text-align:center;box-shadow:0 15px 50px #74334e35;animation:pop .3s}
+.modal-card .modal-heart{font-size:48px;margin-bottom:12px}
+.modal-card p{color:#a36b82;margin:8px 0 20px}
+.modal-card button{background:#f06292;color:white}
 @keyframes bounce{0%,100%{transform:translateY(0) rotate(-3deg)}50%{transform:translateY(-8px) rotate(3deg)}}
-@keyframes pop{50%{transform:scale(1.25) rotate(-8deg)}}
+@keyframes pop{50%{transform:scale(1.08)}}
 @keyframes floatUp{to{transform:translateY(-110vh) rotate(360deg);opacity:0}}
-@media(max-width:380px){.panel{padding:17px}.bucket-item{padding:12px 10px}.bucket-text{font-size:13px}.photo-controls{gap:6px}.photo-controls button{padding:11px 12px;font-size:14px}}
+@media(max-width:380px){.panel{padding:17px}.bucket-item{padding:12px 10px}.bucket-text{font-size:13px}.photo-controls{gap:6px}.photo-controls button{padding:11px 12px;font-size:14px}#travelMap{height:350px}}
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
 </style>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 </head>
-
 <body>
 <div class="center" id="start">
   <main class="card">
@@ -130,6 +153,8 @@ button{font-size:16px;font-weight:700;border:0;border-radius:16px;padding:14px 2
           <button class="menu-button" onclick="showPage('letterPage')"><span class="emoji">💌</span>Eine Nachricht<small>Nur für dich, Emily</small></button>
           <button class="menu-button" onclick="showPage('bucketPage')"><span class="emoji">✨</span>Unsere Bucket List<small id="menuProgress">0 von 19 erledigt</small></button>
           <button class="menu-button" onclick="showPage('photoPage')"><span class="emoji">📸</span>Unser Fotoalbum<small>Unsere Erinnerungen 💗</small></button>
+          <button class="menu-button" onclick="showPage('mapPage')"><span class="emoji">🌍</span>Unsere Weltkarte<small>Orte und Erinnerungen</small></button>
+          <button class="menu-button" onclick="openAnniversary()"><span class="emoji">💗</span>Unser Jahrestag<small>Ein kleines Extra</small></button>
         </div>
       </div>
       <p style="text-align:center;font-size:12px">Mit ganz viel Mühe gebaut von Emre ♡</p>
@@ -146,7 +171,6 @@ button{font-size:16px;font-weight:700;border:0;border-radius:16px;padding:14px 2
           <div class="signature">Dein Emre ♡</div>
         </div>
       </div>
-
       <div class="panel">
         <h2 class="section-title">Nachrichten füreinander 💌</h2>
         <p class="muted">Kleine Nachrichten, die bleiben. 💗</p>
@@ -168,13 +192,11 @@ button{font-size:16px;font-weight:700;border:0;border-radius:16px;padding:14px 2
           <button id="toggleAddForm" class="add-button" type="button" aria-label="Aktivität hinzufügen">+</button>
         </div>
         <p class="muted">19 Missionen für Emre & Emily.<br>Zusammen abhaken macht doppelt Spaß. 💗</p>
-
         <form id="addActivityForm" class="add-form hidden">
           <input id="newActivity" maxlength="180" placeholder="Neue gemeinsame Mission …" required>
           <button type="submit">Hinzufügen 💗</button>
         </form>
         <p id="bucketStatus" class="status-text" aria-live="polite">Bucket List wird geladen …</p>
-
         <div class="progress-area">
           <div class="progress-label">
             <span id="progress-text">Noch nichts erledigt 👀</span>
@@ -182,7 +204,6 @@ button{font-size:16px;font-weight:700;border:0;border-radius:16px;padding:14px 2
           </div>
           <div class="progress-track"><div id="progress-bar"></div></div>
         </div>
-
         <div id="bucketList" class="bucket-list"></div>
         <div id="allDone" class="hidden" style="text-align:center;padding-top:24px">
           <div style="font-size:55px">🏆💗🎉</div>
@@ -197,24 +218,50 @@ button{font-size:16px;font-weight:700;border:0;border-radius:16px;padding:14px 2
       <div class="panel">
         <h2 class="section-title">Unser Fotoalbum 📸</h2>
         <p class="muted">Vier Fotos, ganz viele Erinnerungen. 💗</p>
-
         <div class="photo-viewer">
           <div class="photo-frame">
             <img id="albumPhoto" src="fotos/foto1.jpg" alt="Unsere Erinnerung – Foto 1">
           </div>
           <div id="albumCaption" class="photo-caption">Foto 1 💗</div>
           <div id="albumCounter" class="photo-counter">1 von 4</div>
-
           <div class="photo-controls">
             <button id="albumPrev" class="back-button" type="button" disabled>← Zurück</button>
             <button id="albumNext" class="primary" type="button">Weiter →</button>
           </div>
-
           <div id="albumDots" class="photo-dots"></div>
         </div>
       </div>
     </section>
 
+    <section id="mapPage" class="hidden">
+      <button class="back-button" onclick="showPage('menu')">← Zurück</button>
+      <div class="panel">
+        <h2 class="section-title">Unsere Weltkarte 🌍</h2>
+        <p class="muted">Setzt eine Stecknadel auf einen Ort und sammelt eure Erinnerungen. 💗</p>
+        <p class="map-hint">Tippt oder klickt auf die Karte, um einen Ort hinzuzufügen. Klickt auf eine vorhandene Stecknadel, um die Erinnerung anzusehen.</p>
+        <div id="travelMap" aria-label="Interaktive Weltkarte"></div>
+        <p id="mapStatus" class="map-status" aria-live="polite">Karte wird geladen …</p>
+        <form id="mapForm" class="map-form hidden">
+          <h3 class="section-title">Neue Erinnerung 📍</h3>
+          <p id="mapCoordinates" class="map-hint"></p>
+          <input id="mapPlaceName" type="text" maxlength="80" placeholder="Name des Ortes oder Landes" required>
+          <textarea id="mapPlaceNote" maxlength="300" placeholder="Schreibt 1–2 Sätze zu eurer Erinnerung …" required></textarea>
+          <label for="mapPlacePhoto" class="muted">Euer Lieblingsfoto</label>
+          <input id="mapPlacePhoto" type="file" accept="image/*" required>
+          <button type="submit">Stecknadel speichern 💗</button>
+          <button id="cancelMapForm" type="button" class="secondary-button">Abbrechen</button>
+        </form>
+      </div>
+    </section>
+  </div>
+</div>
+
+<div id="anniversaryModal" class="modal-overlay hidden" role="dialog" aria-modal="true" aria-labelledby="anniversaryTitle">
+  <div class="modal-card">
+    <div class="modal-heart">💗</div>
+    <h2 id="anniversaryTitle" class="section-title">Unser Jahrestag</h2>
+    <p>Dieses Feature wird gerade mit ganz viel Liebe entwickelt.. 💕</p>
+    <button type="button" onclick="closeAnniversary()">Alles klar 💗</button>
   </div>
 </div>
 
@@ -236,7 +283,6 @@ const firebaseConfig = {
   messagingSenderId: "680300274030",
   appId: "1:680300274030:web:828a0fdcf4f18bd73e617f"
 };
-
 const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
 
@@ -253,12 +299,10 @@ function moveNoButton() {
   const maxY = Math.max(margin, innerHeight - noButton.offsetHeight - margin);
   const old = noButton.getBoundingClientRect();
   let x, y;
-
   do {
     x = margin + Math.random() * Math.max(0, maxX - margin);
     y = margin + Math.random() * Math.max(0, maxY - margin);
   } while (Math.abs(x - old.left) < 120 && Math.abs(y - old.top) < 80);
-
   noButton.style.left = x + "px";
   noButton.style.top = y + "px";
   attempts++;
@@ -266,7 +310,6 @@ function moveNoButton() {
   else if (attempts === 6) noButton.textContent = "Erwischt mich nie 😂";
   else if (attempts >= 9) noButton.textContent = "Gib auf 🙈";
 }
-
 noButton.addEventListener("pointerenter", e => {
   if (e.pointerType === "mouse") moveNoButton();
 });
@@ -278,20 +321,17 @@ noButton.addEventListener("click", e => {
   e.preventDefault();
   moveNoButton();
 });
-
 document.getElementById("yes").addEventListener("click", () => {
   question.classList.add("hidden");
   success.classList.remove("hidden");
   for (let i = 0; i < 45; i++) setTimeout(createHeart, i * 65);
 });
-
 window.addEventListener("resize", () => {
   if (!noButton.classList.contains("running")) return;
   const r = noButton.getBoundingClientRect();
   noButton.style.left = Math.max(10, Math.min(r.left, innerWidth - noButton.offsetWidth - 10)) + "px";
   noButton.style.top = Math.max(10, Math.min(r.top, innerHeight - noButton.offsetHeight - 10)) + "px";
 });
-
 function createHeart() {
   const heart = document.createElement("div");
   heart.className = "heart";
@@ -303,7 +343,6 @@ function createHeart() {
   document.body.appendChild(heart);
   setTimeout(() => heart.remove(), 5500);
 }
-
 window.openWorld = function() {
   document.getElementById("start").classList.add("hidden");
   document.getElementById("world").classList.remove("hidden");
@@ -312,11 +351,28 @@ window.openWorld = function() {
 };
 
 window.showPage = function(pageId) {
-  ["menu", "letterPage", "bucketPage", "photoPage"].forEach(id => {
+  ["menu", "letterPage", "bucketPage", "photoPage", "mapPage"].forEach(id => {
     document.getElementById(id).classList.toggle("hidden", id !== pageId);
   });
+  if (pageId === "mapPage") {
+    initializeTravelMap();
+    setTimeout(() => {
+      if (travelMap) travelMap.invalidateSize();
+    }, 100);
+  }
   window.scrollTo({top: 0, behavior: "smooth"});
 };
+
+/* Jahrestag-Platzhalter */
+window.openAnniversary = function() {
+  document.getElementById("anniversaryModal").classList.remove("hidden");
+};
+window.closeAnniversary = function() {
+  document.getElementById("anniversaryModal").classList.add("hidden");
+};
+document.getElementById("anniversaryModal").addEventListener("click", event => {
+  if (event.target.id === "anniversaryModal") closeAnniversary();
+});
 
 /* Eure originalen 19 Aktivitäten */
 const defaultActivities = [
@@ -340,7 +396,6 @@ const defaultActivities = [
   "Auf dem Balkon einen Wein trinken",
   "Date im türkischen Restaurant"
 ];
-
 const funnyMessages = [
   "MISSION ERFÜLLT! Ihr seid ja richtig produktiv 😂",
   "Ein weiterer Punkt weniger. Emre ist stolz. 🫡",
@@ -351,13 +406,11 @@ const funnyMessages = [
   "Euer zukünftiges Ich sagt Danke. 💕",
   "POV: Ihr zieht eure Pläne tatsächlich durch 😂"
 ];
-
 let activities = [];
 let checkedItems = {};
 let activitiesReady = false;
 let checkedReady = false;
 let toastTimeout;
-
 const list = document.getElementById("bucketList");
 const bucketStatus = document.getElementById("bucketStatus");
 
@@ -371,7 +424,6 @@ function showToast(message) {
 
 /* Einmalig die Ausgangsliste anlegen, falls sie noch nicht existiert */
 const activitiesRef = ref(db, "bucketList/activities");
-
 runTransaction(activitiesRef, current => {
   if (current !== null) return;
   const initial = {};
@@ -389,7 +441,6 @@ let oldLocal = {};
 try {
   oldLocal = JSON.parse(localStorage.getItem("emreEmilyBucketListV1") || "{}") || {};
 } catch (_) {}
-
 const checkedRef = ref(db, "bucketList/checked");
 runTransaction(checkedRef, current => {
   if (current !== null) return;
@@ -411,7 +462,6 @@ onValue(activitiesRef, snapshot => {
       createdAt: Number(item.createdAt) || 0
     }))
     .sort((a, b) => a.createdAt - b.createdAt || a.id.localeCompare(b.id));
-
   activitiesReady = true;
   bucketStatus.textContent = "Gemeinsam synchronisiert 💗";
   renderList();
@@ -432,19 +482,15 @@ onValue(checkedRef, snapshot => {
 
 function renderList() {
   if (!activitiesReady || !checkedReady) return;
-
   list.innerHTML = "";
-
   activities.forEach(activity => {
     const label = document.createElement("label");
     label.className = "bucket-item";
     label.classList.toggle("done", !!checkedItems[activity.id]);
-
     const checkbox = document.createElement("input");
     checkbox.type = "checkbox";
     checkbox.checked = !!checkedItems[activity.id];
     checkbox.setAttribute("aria-label", activity.text);
-
     checkbox.addEventListener("change", async () => {
       const isChecked = checkbox.checked;
       checkbox.disabled = true;
@@ -463,7 +509,6 @@ function renderList() {
         checkbox.disabled = false;
       }
     });
-
     const text = document.createElement("span");
     text.className = "bucket-text";
     text.textContent = activity.text;
@@ -474,38 +519,31 @@ function renderList() {
   const count = activities.filter(a => !!checkedItems[a.id]).length;
   const total = activities.length;
   const percent = total ? Math.round(count / total * 100) : 0;
-
   document.getElementById("progress-count").textContent = count + "/" + total;
   document.getElementById("progress-bar").style.width = percent + "%";
   document.getElementById("menuProgress").textContent = count + " von " + total + " erledigt";
-
   document.getElementById("progress-text").textContent =
     count === 0 ? "Noch nichts erledigt 👀" :
     count === total ? "ALLES GESCHAFFT! 🏆" :
     count >= 10 ? "Ihr seid nicht mehr aufzuhalten! 🔥" :
     count >= 5 ? "Läuft bei euch! 💗" :
     "Der Anfang ist gemacht! ✨";
-
   document.getElementById("allDone").classList.toggle("hidden", total === 0 || count !== total);
 }
 
 /* Neue Aktivität hinzufügen */
 const addForm = document.getElementById("addActivityForm");
 const newActivityInput = document.getElementById("newActivity");
-
 document.getElementById("toggleAddForm").addEventListener("click", () => {
   addForm.classList.toggle("hidden");
   if (!addForm.classList.contains("hidden")) newActivityInput.focus();
 });
-
 addForm.addEventListener("submit", async event => {
   event.preventDefault();
   const text = newActivityInput.value.trim();
   if (!text) return;
-
   const button = addForm.querySelector("button");
   button.disabled = true;
-
   try {
     await set(push(activitiesRef), {text, createdAt: Date.now()});
     newActivityInput.value = "";
@@ -523,7 +561,6 @@ addForm.addEventListener("submit", async event => {
 const messagesRef = ref(db, "messages");
 const messagesContainer = document.getElementById("messages");
 const messageStatus = document.getElementById("messageStatus");
-
 onValue(messagesRef, snapshot => {
   renderMessages(snapshot.val() || {});
   messageStatus.textContent = "Gemeinsames Nachrichtenbuch 💗";
@@ -534,11 +571,9 @@ onValue(messagesRef, snapshot => {
 
 function renderMessages(data) {
   messagesContainer.innerHTML = "";
-
   const ordered = Object.values(data)
     .filter(message => message && typeof message.text === "string")
     .sort((a, b) => (Number(b.timestamp) || 0) - (Number(a.timestamp) || 0));
-
   if (!ordered.length) {
     const empty = document.createElement("p");
     empty.className = "muted";
@@ -546,28 +581,22 @@ function renderMessages(data) {
     messagesContainer.appendChild(empty);
     return;
   }
-
   ordered.forEach(message => {
     const card = document.createElement("article");
     card.className = "message-card";
-
     const meta = document.createElement("div");
     meta.className = "message-meta";
-
     const author = document.createElement("span");
     author.className = "message-author";
     author.textContent = message.name || "Unbekannt";
-
     const date = document.createElement("time");
     const timestamp = Number(message.timestamp);
     date.textContent = Number.isFinite(timestamp)
       ? new Intl.DateTimeFormat("de-DE", {dateStyle:"medium", timeStyle:"short"}).format(new Date(timestamp))
       : "Zeit unbekannt";
-
     const body = document.createElement("div");
     body.className = "message-body";
     body.textContent = message.text;
-
     meta.append(author, date);
     card.append(meta, body);
     messagesContainer.appendChild(card);
@@ -576,17 +605,14 @@ function renderMessages(data) {
 
 document.getElementById("messageForm").addEventListener("submit", async event => {
   event.preventDefault();
-
   const nameInput = document.getElementById("messageName");
   const textInput = document.getElementById("messageText");
   const name = nameInput.value.trim();
   const text = textInput.value.trim();
   if (!name || !text) return;
-
   const button = event.currentTarget.querySelector("button");
   button.disabled = true;
   button.textContent = "Wird gespeichert …";
-
   try {
     await set(push(messagesRef), {
       name: name.slice(0, 40),
@@ -611,9 +637,7 @@ const albumPhotos = [
   "fotos/foto3.jpg",
   "fotos/foto4.jpg"
 ];
-
 let albumIndex = 0;
-
 const albumImage = document.getElementById("albumPhoto");
 const albumCaption = document.getElementById("albumCaption");
 const albumCounter = document.getElementById("albumCounter");
@@ -626,47 +650,244 @@ function renderAlbum() {
   albumImage.alt = "Unsere Erinnerung – Foto " + (albumIndex + 1);
   albumCaption.textContent = "Foto " + (albumIndex + 1) + " 💗";
   albumCounter.textContent = (albumIndex + 1) + " von " + albumPhotos.length;
-
   albumPrev.disabled = albumIndex === 0;
   albumNext.disabled = albumIndex === albumPhotos.length - 1;
-
   albumDots.innerHTML = "";
-
   albumPhotos.forEach((photo, index) => {
     const dot = document.createElement("button");
     dot.type = "button";
     dot.className = "photo-dot" + (index === albumIndex ? " active" : "");
     dot.setAttribute("aria-label", "Foto " + (index + 1) + " anzeigen");
-
     dot.addEventListener("click", () => {
       albumIndex = index;
       renderAlbum();
     });
-
     albumDots.appendChild(dot);
   });
 }
-
 albumImage.addEventListener("error", () => {
   console.error("Foto konnte nicht geladen werden:", albumImage.src);
   albumCaption.textContent = "Foto nicht gefunden 😕";
 });
-
 albumPrev.addEventListener("click", () => {
   if (albumIndex > 0) {
     albumIndex--;
     renderAlbum();
   }
 });
-
 albumNext.addEventListener("click", () => {
   if (albumIndex < albumPhotos.length - 1) {
     albumIndex++;
     renderAlbum();
   }
 });
-
 renderAlbum();
+
+/* Weltkarte: gemeinsame Stecknadeln und Erinnerungen */
+const mapStatus = document.getElementById("mapStatus");
+const mapForm = document.getElementById("mapForm");
+const mapPlaceName = document.getElementById("mapPlaceName");
+const mapPlaceNote = document.getElementById("mapPlaceNote");
+const mapPlacePhoto = document.getElementById("mapPlacePhoto");
+const mapCoordinates = document.getElementById("mapCoordinates");
+const mapRef = ref(db, "travelMap/places");
+let travelMap = null;
+let pendingMapPoint = null;
+let mapMarkersLayer = null;
+let mapPlaces = {};
+let mapPlacesLoaded = false;
+
+function initializeTravelMap() {
+  if (travelMap) return;
+  if (!window.L) {
+    mapStatus.textContent = "Die Karte konnte nicht geladen werden. Bitte lade die Seite erneut.";
+    return;
+  }
+
+  travelMap = L.map("travelMap", {
+    worldCopyJump: true
+  }).setView([25, 10], 2);
+
+  L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a>',
+    maxZoom: 18
+  }).addTo(travelMap);
+
+  mapMarkersLayer = L.layerGroup().addTo(travelMap);
+
+  travelMap.on("click", event => {
+    pendingMapPoint = {
+      lat: Number(event.latlng.lat.toFixed(6)),
+      lng: Number(event.latlng.lng.toFixed(6))
+    };
+    mapCoordinates.textContent =
+      "Position: " + pendingMapPoint.lat + ", " + pendingMapPoint.lng;
+    mapPlaceName.value = "";
+    mapPlaceNote.value = "";
+    mapPlacePhoto.value = "";
+    mapForm.classList.remove("hidden");
+    mapStatus.textContent = "Beschreibt eure Erinnerung und fügt ein Foto hinzu.";
+    mapForm.scrollIntoView({behavior:"smooth", block:"nearest"});
+    mapPlaceName.focus();
+  });
+
+  mapStatus.textContent = "Karte bereit 💗";
+  if (mapPlacesLoaded) renderMapMarkers();
+}
+
+onValue(mapRef, snapshot => {
+  mapPlaces = snapshot.val() || {};
+  mapPlacesLoaded = true;
+  renderMapMarkers();
+  if (!Object.keys(mapPlaces).length) {
+    mapStatus.textContent = "Noch keine Stecknadeln. Setzt eure erste auf der Karte! 💗";
+  } else {
+    mapStatus.textContent = Object.keys(mapPlaces).length + " gemeinsame Erinnerungen 💗";
+  }
+}, error => {
+  mapStatus.textContent = "Die Erinnerungen konnten nicht geladen werden.";
+  console.error("Weltkarte:", error);
+});
+
+function renderMapMarkers() {
+  if (!travelMap || !mapMarkersLayer) return;
+  mapMarkersLayer.clearLayers();
+
+  Object.entries(mapPlaces).forEach(([id, place]) => {
+    if (!place || !Number.isFinite(Number(place.lat)) || !Number.isFinite(Number(place.lng))) return;
+
+    const markerIcon = L.divIcon({
+      className: "",
+      html: '<div class="map-marker">📍</div>',
+      iconSize: [32, 36],
+      iconAnchor: [16, 34]
+    });
+
+    const marker = L.marker([Number(place.lat), Number(place.lng)], {
+      icon: markerIcon
+    }).addTo(mapMarkersLayer);
+
+    marker.on("click", () => {
+      const popup = document.createElement("div");
+      const title = document.createElement("div");
+      title.className = "map-popup-title";
+      title.textContent = place.name || "Unsere Erinnerung";
+
+      const note = document.createElement("div");
+      note.className = "map-popup-note";
+      note.textContent = place.note || "";
+
+      popup.append(title, note);
+
+      if (typeof place.photo === "string" && place.photo.startsWith("data:image/")) {
+        const image = document.createElement("img");
+        image.className = "map-place-image";
+        image.src = place.photo;
+        image.alt = "Lieblingsfoto: " + (place.name || "Unsere Erinnerung");
+        popup.appendChild(image);
+      }
+
+      if (place.createdAt) {
+        const date = document.createElement("div");
+        date.className = "map-popup-date";
+        date.textContent = new Intl.DateTimeFormat("de-DE", {dateStyle:"medium"}).format(new Date(place.createdAt));
+        popup.appendChild(date);
+      }
+
+      marker.bindPopup(popup).openPopup();
+    });
+  });
+}
+
+/* Fotos vor dem Speichern verkleinern, damit Firebase nicht mit Originaldateien überladen wird */
+async function compressMapPhoto(file) {
+  if (!file || !file.type.startsWith("image/")) {
+    throw new Error("Bitte wählt eine Bilddatei aus.");
+  }
+  if (file.size > 15 * 1024 * 1024) {
+    throw new Error("Das Originalfoto ist größer als 15 MB.");
+  }
+
+  const image = await new Promise((resolve, reject) => {
+    const objectUrl = URL.createObjectURL(file);
+    const img = new Image();
+    img.onload = () => {
+      URL.revokeObjectURL(objectUrl);
+      resolve(img);
+    };
+    img.onerror = () => {
+      URL.revokeObjectURL(objectUrl);
+      reject(new Error("Das Foto konnte nicht geöffnet werden."));
+    };
+    img.src = objectUrl;
+  });
+
+  const maxSide = 1000;
+  const scale = Math.min(1, maxSide / Math.max(image.naturalWidth, image.naturalHeight));
+  const canvas = document.createElement("canvas");
+  canvas.width = Math.max(1, Math.round(image.naturalWidth * scale));
+  canvas.height = Math.max(1, Math.round(image.naturalHeight * scale));
+
+  const context = canvas.getContext("2d");
+  context.fillStyle = "#ffffff";
+  context.fillRect(0, 0, canvas.width, canvas.height);
+  context.drawImage(image, 0, 0, canvas.width, canvas.height);
+
+  return canvas.toDataURL("image/jpeg", 0.65);
+}
+
+document.getElementById("cancelMapForm").addEventListener("click", () => {
+  mapForm.classList.add("hidden");
+  pendingMapPoint = null;
+  mapStatus.textContent = "Erinnerung nicht gespeichert.";
+});
+
+mapForm.addEventListener("submit", async event => {
+  event.preventDefault();
+  if (!pendingMapPoint) {
+    mapStatus.textContent = "Bitte setzt zuerst eine Stecknadel auf der Karte.";
+    return;
+  }
+
+  const name = mapPlaceName.value.trim();
+  const note = mapPlaceNote.value.trim();
+  const file = mapPlacePhoto.files && mapPlacePhoto.files[0];
+
+  if (!name || !note || !file) {
+    mapStatus.textContent = "Bitte gebt einen Ort, eine Erinnerung und ein Foto an.";
+    return;
+  }
+
+  const button = mapForm.querySelector('button[type="submit"]');
+  button.disabled = true;
+  button.textContent = "Wird gespeichert …";
+  mapStatus.textContent = "Foto wird vorbereitet und gespeichert …";
+
+  try {
+    const photo = await compressMapPhoto(file);
+    const placeData = {
+      name: name.slice(0, 80),
+      note: note.slice(0, 300),
+      lat: pendingMapPoint.lat,
+      lng: pendingMapPoint.lng,
+      photo,
+      createdAt: Date.now()
+    };
+
+    await set(push(mapRef), placeData);
+    mapForm.reset();
+    mapForm.classList.add("hidden");
+    pendingMapPoint = null;
+    mapStatus.textContent = "Eure Erinnerung wurde gespeichert 💗";
+    showToast("Stecknadel gespeichert! 💗");
+  } catch (error) {
+    console.error("Speichern der Karten-Erinnerung:", error);
+    mapStatus.textContent = error.message || "Die Erinnerung konnte nicht gespeichert werden.";
+  } finally {
+    button.disabled = false;
+    button.textContent = "Stecknadel speichern 💗";
+  }
+});
 </script>
 </body>
 </html>

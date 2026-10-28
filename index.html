@@ -68,8 +68,6 @@ button{font-size:16px;font-weight:700;border:0;border-radius:16px;padding:14px 2
 .message-author{font-size:14px;font-weight:800;color:#a94c72}
 .message-body{white-space:pre-wrap;overflow-wrap:anywhere;line-height:1.5}
 .status-text{font-size:13px;color:#a36b82;margin:10px 0}
-
-/* Fotoalbum */
 .photo-viewer{background:linear-gradient(135deg,#fff1f6,#ffe0ec);border-radius:20px;padding:12px;text-align:center}
 .photo-frame{display:flex;align-items:center;justify-content:center;min-height:220px;background:#fffafd;border-radius:15px;overflow:hidden}
 .photo-frame img{display:block;width:100%;max-height:65vh;object-fit:contain;border-radius:15px}
@@ -81,8 +79,15 @@ button{font-size:16px;font-weight:700;border:0;border-radius:16px;padding:14px 2
 .photo-dots{display:flex;justify-content:center;gap:8px;margin-top:17px}
 .photo-dot{width:10px;height:10px;min-width:10px;padding:0;border-radius:50%;background:#efbfd0;box-shadow:none}
 .photo-dot.active{background:#f06292;transform:scale(1.25)}
-
-/* Weltkarte */
+.album-upload{display:grid;gap:10px;margin-top:18px;padding:16px;background:#fffafd;border:1px dashed #ed9ab8;border-radius:16px;text-align:left}
+.album-upload label{font-size:14px;font-weight:700;color:#98506d}
+.album-upload input[type=file]{width:100%;font-size:13px;color:#74334e}
+.album-upload button{background:#f06292;color:white}
+.album-upload button:disabled{opacity:.55;cursor:wait}
+.album-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-top:14px}
+.album-thumb{padding:0;background:#fff;border:2px solid white;border-radius:12px;overflow:hidden;box-shadow:0 3px 10px #c45b8420}
+.album-thumb img{display:block;width:100%;height:110px;object-fit:cover}
+.album-thumb.active{border-color:#f06292;box-shadow:0 0 0 2px #f06292}
 #travelMap{width:100%;height:430px;border-radius:17px;border:1px solid #f7dce6;z-index:1}
 .map-form{display:grid;gap:10px;margin-top:16px}
 .map-form input[type="text"],.map-form textarea{width:100%;min-width:0;font:inherit;color:#74334e;border:1px solid #f0c8d8;border-radius:13px;padding:12px;background:#fffafd;outline-color:#f06292}
@@ -90,58 +95,15 @@ button{font-size:16px;font-weight:700;border:0;border-radius:16px;padding:14px 2
 .map-form input[type="file"]{width:100%;font-size:13px;color:#74334e}
 .map-form button{background:#f06292;color:white}
 .map-hint{font-size:13px;color:#a36b82;margin:12px 0}
-
-/* Optimiertes Erinnerungs-Popup */
-.map-place-image{
-  display:block;
-  width:100%;
-  height:120px;
-  max-height:120px;
-  object-fit:cover;
-  object-position:center;
-  border-radius:12px;
-  margin-top:12px;
-}
-.map-popup-title{
-  font-size:16px;
-  line-height:1.35;
-  font-weight:800;
-  color:#8e3e60;
-  margin-bottom:8px;
-  overflow-wrap:anywhere;
-}
-.map-popup-note{
-  font-size:13px;
-  line-height:1.55;
-  color:#74334e;
-  white-space:pre-wrap;
-  overflow-wrap:anywhere;
-}
-.map-popup-date{
-  font-size:11px;
-  color:#a36b82;
-  margin-top:9px;
-}
+.map-place-image{display:block;width:100%;height:120px;max-height:120px;object-fit:cover;object-position:center;border-radius:12px;margin-top:12px}
+.map-popup-title{font-size:16px;line-height:1.35;font-weight:800;color:#8e3e60;margin-bottom:8px;overflow-wrap:anywhere}
+.map-popup-note{font-size:13px;line-height:1.55;color:#74334e;white-space:pre-wrap;overflow-wrap:anywhere}
+.map-popup-date{font-size:11px;color:#a36b82;margin-top:9px}
 .map-marker{font-size:27px;line-height:32px;text-align:center}
 .map-form .secondary-button{background:#ffe1ec;color:#974c6c;box-shadow:none}
-
-/* Keine Statusmeldungen unter der Weltkarte anzeigen */
 .map-status{display:none!important}
-
-/* Schönere Leaflet-Pop-ups */
-.leaflet-popup-content-wrapper{
-  border-radius:16px;
-  box-shadow:0 8px 25px rgba(116,51,78,.16);
-}
-.leaflet-popup-content{
-  width:210px;
-  max-width:calc(100vw - 100px);
-  max-height:280px;
-  overflow-y:auto;
-  margin:14px 16px;
-}
-
-/* Jahrestag-Popup */
+.leaflet-popup-content-wrapper{border-radius:16px;box-shadow:0 8px 25px rgba(116,51,78,.16)}
+.leaflet-popup-content{width:210px;max-width:calc(100vw - 100px);max-height:280px;overflow-y:auto;margin:14px 16px}
 .modal-overlay{position:fixed;inset:0;background:rgba(76,31,51,.42);display:flex;align-items:center;justify-content:center;padding:22px;z-index:1000}
 .modal-card{width:min(100%,370px);background:rgba(255,255,255,.97);border:2px solid white;border-radius:25px;padding:28px 22px;text-align:center;box-shadow:0 15px 50px #74334e35;animation:pop .3s}
 .modal-card .modal-heart{font-size:48px;margin-bottom:12px}
@@ -232,7 +194,7 @@ button{font-size:16px;font-weight:700;border:0;border-radius:16px;padding:14px 2
           <h2 class="section-title">Unsere Bucket List 📝</h2>
           <button id="toggleAddForm" class="add-button" type="button" aria-label="Aktivität hinzufügen">+</button>
         </div>
-        <p class="muted">19 Missionen für Emre & Emily.<br>Zusammen abhaken macht doppelt Spaß. 💗</p>
+        <p class="muted"><span id="bucketTotalText">19 Missionen</span> für Emre &amp; Emily.<br>Zusammen abhaken macht doppelt Spaß. 💗</p>
         <form id="addActivityForm" class="add-form hidden">
           <input id="newActivity" maxlength="180" placeholder="Neue gemeinsame Mission …" required>
           <button type="submit">Hinzufügen 💗</button>
@@ -258,7 +220,7 @@ button{font-size:16px;font-weight:700;border:0;border-radius:16px;padding:14px 2
       <button class="back-button" onclick="showPage('menu')">← Zurück</button>
       <div class="panel">
         <h2 class="section-title">Unser Fotoalbum 📸</h2>
-        <p class="muted">Vier Fotos, ganz viele Erinnerungen. 💗</p>
+        <p class="muted">Unsere Erinnerungen – und jedes neue Foto kommt dazu. 💗</p>
         <div class="photo-viewer">
           <div class="photo-frame">
             <img id="albumPhoto" src="fotos/foto1.jpg" alt="Unsere Erinnerung – Foto 1">
@@ -270,7 +232,15 @@ button{font-size:16px;font-weight:700;border:0;border-radius:16px;padding:14px 2
             <button id="albumNext" class="primary" type="button">Weiter →</button>
           </div>
           <div id="albumDots" class="photo-dots"></div>
+          <div id="albumThumbs" class="album-grid" aria-label="Alle Fotos"></div>
         </div>
+        <form id="albumUploadForm" class="album-upload">
+          <label for="albumUploadInput">Ein Foto von deinem Handy hinzufügen 📱💗</label>
+          <input id="albumUploadInput" type="file" accept="image/*" multiple required>
+          <p class="muted" style="margin:0">Du kannst mehrere Fotos auswählen. Sie werden gespeichert und sind anschließend auf beiden Handys sichtbar.</p>
+          <button id="albumUploadButton" type="submit">Fotos hochladen 💗</button>
+          <p id="albumUploadStatus" class="status-text" aria-live="polite" style="margin:0"></p>
+        </form>
       </div>
     </section>
 
@@ -312,8 +282,10 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/11.10.0/fireba
 import {
   getDatabase, ref, onValue, push, set, runTransaction
 } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-database.js";
+import {
+  getStorage, ref as storageRef, uploadBytes, getDownloadURL
+} from "https://www.gstatic.com/firebasejs/11.10.0/firebase-storage.js";
 
-/* Firebase-Konfiguration */
 const firebaseConfig = {
   apiKey: "AIzaSyCAIZ7IkzD0zXvKehgZBNO6XUErTIxYm_o",
   authDomain: "emreemilybucketlist.firebaseapp.com",
@@ -325,8 +297,8 @@ const firebaseConfig = {
 };
 const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
+const storage = getStorage(app);
 
-/* Startseite: Nein-Button läuft weg */
 const noButton = document.getElementById("no");
 const question = document.getElementById("question");
 const success = document.getElementById("success");
@@ -362,32 +334,25 @@ noButton.addEventListener("click", e => {
   moveNoButton();
 });
 document.getElementById("yes").addEventListener("click", () => {
-  question.classList.add("hidden");
-  success.classList.remove("hidden");
-  for (let i = 0; i < 45; i++) setTimeout(createHeart, i * 65);
+  document.getElementById("question").classList.add("hidden");
+  document.getElementById("success").classList.remove("hidden");
+  for (let i = 0; i < 18; i++) setTimeout(createHeart, i * 120);
 });
-window.addEventListener("resize", () => {
-  if (!noButton.classList.contains("running")) return;
-  const r = noButton.getBoundingClientRect();
-  noButton.style.left = Math.max(10, Math.min(r.left, innerWidth - noButton.offsetWidth - 10)) + "px";
-  noButton.style.top = Math.max(10, Math.min(r.top, innerHeight - noButton.offsetHeight - 10)) + "px";
-});
+
 function createHeart() {
   const heart = document.createElement("div");
   heart.className = "heart";
-  const emojis = ["💗","💖","💕","💘","❤️","✨"];
-  heart.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+  heart.textContent = ["💗", "💕", "💖", "💘", "❤️"][Math.floor(Math.random() * 5)];
   heart.style.left = Math.random() * 100 + "vw";
-  heart.style.fontSize = (18 + Math.random() * 25) + "px";
-  heart.style.animationDuration = (2 + Math.random() * 3) + "s";
+  heart.style.fontSize = (16 + Math.random() * 22) + "px";
+  heart.style.animationDuration = (2 + Math.random() * 2) + "s";
   document.body.appendChild(heart);
-  setTimeout(() => heart.remove(), 5500);
+  setTimeout(() => heart.remove(), 4500);
 }
+
 window.openWorld = function() {
   document.getElementById("start").classList.add("hidden");
   document.getElementById("world").classList.remove("hidden");
-  showPage("menu");
-  window.scrollTo(0, 0);
 };
 
 window.showPage = function(pageId) {
@@ -395,40 +360,38 @@ window.showPage = function(pageId) {
     document.getElementById(id).classList.toggle("hidden", id !== pageId);
   });
   if (pageId === "mapPage") {
-    initializeTravelMap();
     setTimeout(() => {
+      initializeTravelMap();
       if (travelMap) travelMap.invalidateSize();
     }, 100);
   }
   window.scrollTo({top: 0, behavior: "smooth"});
 };
 
-/* Jahrestag-Platzhalter */
 window.openAnniversary = function() {
   document.getElementById("anniversaryModal").classList.remove("hidden");
 };
 window.closeAnniversary = function() {
   document.getElementById("anniversaryModal").classList.add("hidden");
 };
-document.getElementById("anniversaryModal").addEventListener("click", event => {
-  if (event.target.id === "anniversaryModal") closeAnniversary();
-});
 
-/* Eure originalen 19 Aktivitäten */
+/* Bucket List */
 const defaultActivities = [
-  "Bei Lolu’s essen gehen",
-  "Date im geheimnisvollen Bougee Restaurant in Neudorf",
-  "In Prag Baumstriezeln essen",
-  "Sauna Hausboot",
-  "Henna tattoos machen",
-  "Tantra Massage",
-  "Zusammen Pizza machen",
-  "Die Suche nach dem perfekten Spaghetti Eis",
-  "1 Nasenhaar pflücken",
-  "Cocktails im Sucos do Brasil trinken",
-  "Weinwanderung an der Mosel",
-  "Business Workshop mit Alkohol (und Sex)",
-  "Hotel Spa sex?",
+  "Zusammen Sonnenuntergang anschauen",
+  "Einen spontanen Tagestrip machen",
+  "Zusammen kochen",
+  "Ein Picknick machen",
+  "Einen Filmabend mit Snacks machen",
+  "Zusammen bowlen gehen",
+  "Ein neues Café ausprobieren",
+  "Zusammen an den Strand fahren",
+  "Ein Brettspiel spielen",
+  "Ein gemeinsames Foto-Shooting machen",
+  "Zusammen Eis essen gehen",
+  "Ein Museum oder eine Ausstellung besuchen",
+  "Zusammen einen neuen Ort entdecken",
+  "Einen ganzen Tag ohne Handy verbringen",
+  "Zusammen Karaoke singen",
   "Zusammen gözleme machen",
   "Bollywood Film gucken",
   "Türkisch für Anfänger zu Ende schauen",
@@ -462,7 +425,6 @@ function showToast(message) {
   toastTimeout = setTimeout(() => toast.classList.remove("show"), 2400);
 }
 
-/* Einmalig die Ausgangsliste anlegen, falls sie noch nicht existiert */
 const activitiesRef = ref(db, "bucketList/activities");
 runTransaction(activitiesRef, current => {
   if (current !== null) return;
@@ -476,7 +438,6 @@ runTransaction(activitiesRef, current => {
   console.error(error);
 });
 
-/* Bereits vorhandene lokale Häkchen beim ersten Start übernehmen */
 let oldLocal = {};
 try {
   oldLocal = JSON.parse(localStorage.getItem("emreEmilyBucketListV1") || "{}") || {};
@@ -491,7 +452,6 @@ runTransaction(checkedRef, current => {
   return migrated;
 }).catch(error => console.error("Progress migration:", error));
 
-/* Gemeinsame Liste live beobachten */
 onValue(activitiesRef, snapshot => {
   const data = snapshot.val() || {};
   activities = Object.entries(data)
@@ -510,7 +470,6 @@ onValue(activitiesRef, snapshot => {
   console.error(error);
 });
 
-/* Gemeinsame Häkchen live beobachten */
 onValue(checkedRef, snapshot => {
   checkedItems = snapshot.val() || {};
   checkedReady = true;
@@ -558,6 +517,8 @@ function renderList() {
 
   const count = activities.filter(a => !!checkedItems[a.id]).length;
   const total = activities.length;
+  document.getElementById("bucketTotalText").textContent =
+    total + (total === 1 ? " Mission" : " Missionen");
   const percent = total ? Math.round(count / total * 100) : 0;
   document.getElementById("progress-count").textContent = count + "/" + total;
   document.getElementById("progress-bar").style.width = percent + "%";
@@ -571,69 +532,63 @@ function renderList() {
   document.getElementById("allDone").classList.toggle("hidden", total === 0 || count !== total);
 }
 
-/* Neue Aktivität hinzufügen */
 const addForm = document.getElementById("addActivityForm");
-const newActivityInput = document.getElementById("newActivity");
+const newActivity = document.getElementById("newActivity");
 document.getElementById("toggleAddForm").addEventListener("click", () => {
   addForm.classList.toggle("hidden");
-  if (!addForm.classList.contains("hidden")) newActivityInput.focus();
+  if (!addForm.classList.contains("hidden")) newActivity.focus();
 });
+
 addForm.addEventListener("submit", async event => {
   event.preventDefault();
-  const text = newActivityInput.value.trim();
+  const text = newActivity.value.trim();
   if (!text) return;
-  const button = addForm.querySelector("button");
+  const button = addForm.querySelector("button[type='submit']");
   button.disabled = true;
+  button.textContent = "Wird hinzugefügt …";
   try {
-    await set(push(activitiesRef), {text, createdAt: Date.now()});
-    newActivityInput.value = "";
+    await set(push(activitiesRef), {text: text.slice(0, 180), createdAt: Date.now()});
+    newActivity.value = "";
     addForm.classList.add("hidden");
     showToast("Neue Mission hinzugefügt! 💗");
   } catch (error) {
-    showToast("Eintrag konnte nicht gespeichert werden. 😕");
+    showToast("Konnte nicht hinzugefügt werden. 😕");
     console.error(error);
   } finally {
     button.disabled = false;
+    button.textContent = "Hinzufügen 💗";
   }
 });
 
-/* Gemeinsames Nachrichtenbuch */
+/* Nachrichten */
 const messagesRef = ref(db, "messages");
 const messagesContainer = document.getElementById("messages");
 const messageStatus = document.getElementById("messageStatus");
-onValue(messagesRef, snapshot => {
-  renderMessages(snapshot.val() || {});
-  messageStatus.textContent = "Gemeinsames Nachrichtenbuch 💗";
-}, error => {
-  messageStatus.textContent = "Nachrichten konnten nicht geladen werden. Firebase-Regeln prüfen.";
-  console.error(error);
-});
 
-function renderMessages(data) {
-  messagesContainer.innerHTML = "";
-  const ordered = Object.values(data)
-    .filter(message => message && typeof message.text === "string")
+onValue(messagesRef, snapshot => {
+  const data = snapshot.val() || {};
+  const messages = Object.entries(data)
+    .filter(([, item]) => item && typeof item.text === "string")
+    .map(([id, item]) => ({id, ...item}))
     .sort((a, b) => (Number(b.timestamp) || 0) - (Number(a.timestamp) || 0));
-  if (!ordered.length) {
-    const empty = document.createElement("p");
-    empty.className = "muted";
-    empty.textContent = "Noch keine Nachrichten. Wer fängt an? 🥹";
-    messagesContainer.appendChild(empty);
-    return;
-  }
-  ordered.forEach(message => {
+
+  messagesContainer.innerHTML = "";
+  messageStatus.textContent = messages.length
+    ? messages.length + (messages.length === 1 ? " Nachricht 💗" : " Nachrichten 💗")
+    : "Noch keine Nachrichten. Fang du an! 💌";
+
+  messages.forEach(message => {
     const card = document.createElement("article");
     card.className = "message-card";
     const meta = document.createElement("div");
     meta.className = "message-meta";
     const author = document.createElement("span");
     author.className = "message-author";
-    author.textContent = message.name || "Unbekannt";
-    const date = document.createElement("time");
-    const timestamp = Number(message.timestamp);
-    date.textContent = Number.isFinite(timestamp)
-      ? new Intl.DateTimeFormat("de-DE", {dateStyle:"medium", timeStyle:"short"}).format(new Date(timestamp))
-      : "Zeit unbekannt";
+    author.textContent = message.name || "Jemand 💗";
+    const date = document.createElement("span");
+    date.textContent = message.timestamp
+      ? new Intl.DateTimeFormat("de-DE", {dateStyle:"medium", timeStyle:"short"}).format(new Date(message.timestamp))
+      : "";
     const body = document.createElement("div");
     body.className = "message-body";
     body.textContent = message.text;
@@ -641,16 +596,20 @@ function renderMessages(data) {
     card.append(meta, body);
     messagesContainer.appendChild(card);
   });
-}
+}, error => {
+  messageStatus.textContent = "Nachrichten konnten nicht geladen werden. Firebase-Regeln prüfen.";
+  console.error(error);
+});
 
 document.getElementById("messageForm").addEventListener("submit", async event => {
   event.preventDefault();
+  const form = event.currentTarget;
   const nameInput = document.getElementById("messageName");
   const textInput = document.getElementById("messageText");
   const name = nameInput.value.trim();
   const text = textInput.value.trim();
   if (!name || !text) return;
-  const button = event.currentTarget.querySelector("button");
+  const button = form.querySelector("button");
   button.disabled = true;
   button.textContent = "Wird gespeichert …";
   try {
@@ -670,13 +629,14 @@ document.getElementById("messageForm").addEventListener("submit", async event =>
   }
 });
 
-/* Fotoalbum: vier Bilder aus dem GitHub-Repository */
-const albumPhotos = [
-  "fotos/foto1.jpg",
-  "fotos/foto2.jpg",
-  "fotos/foto3.jpg",
-  "fotos/foto4.jpg"
+/* Fotoalbum: vorhandene Fotos plus gemeinsame Uploads */
+const initialAlbumPhotos = [
+  {url:"fotos/foto1.jpg", caption:"Foto 1 💗", id:"local-1"},
+  {url:"fotos/foto2.jpg", caption:"Foto 2 💗", id:"local-2"},
+  {url:"fotos/foto3.jpg", caption:"Foto 3 💗", id:"local-3"},
+  {url:"fotos/foto4.jpg", caption:"Foto 4 💗", id:"local-4"}
 ];
+let albumPhotos = [...initialAlbumPhotos];
 let albumIndex = 0;
 const albumImage = document.getElementById("albumPhoto");
 const albumCaption = document.getElementById("albumCaption");
@@ -684,16 +644,37 @@ const albumCounter = document.getElementById("albumCounter");
 const albumPrev = document.getElementById("albumPrev");
 const albumNext = document.getElementById("albumNext");
 const albumDots = document.getElementById("albumDots");
+const albumThumbs = document.getElementById("albumThumbs");
+const albumUploadForm = document.getElementById("albumUploadForm");
+const albumUploadInput = document.getElementById("albumUploadInput");
+const albumUploadButton = document.getElementById("albumUploadButton");
+const albumUploadStatus = document.getElementById("albumUploadStatus");
+const albumRef = ref(db, "photoAlbum/photos");
 
 function renderAlbum() {
-  albumImage.src = albumPhotos[albumIndex];
-  albumImage.alt = "Unsere Erinnerung – Foto " + (albumIndex + 1);
-  albumCaption.textContent = "Foto " + (albumIndex + 1) + " 💗";
+  if (!albumPhotos.length) {
+    albumImage.removeAttribute("src");
+    albumCaption.textContent = "Noch keine Fotos 💗";
+    albumCounter.textContent = "0 Fotos";
+    albumPrev.disabled = true;
+    albumNext.disabled = true;
+    albumDots.innerHTML = "";
+    albumThumbs.innerHTML = "";
+    return;
+  }
+
+  albumIndex = Math.max(0, Math.min(albumIndex, albumPhotos.length - 1));
+  const photo = albumPhotos[albumIndex];
+  albumImage.src = photo.url;
+  albumImage.alt = photo.caption || ("Unsere Erinnerung – Foto " + (albumIndex + 1));
+  albumCaption.textContent = photo.caption || ("Foto " + (albumIndex + 1) + " 💗");
   albumCounter.textContent = (albumIndex + 1) + " von " + albumPhotos.length;
   albumPrev.disabled = albumIndex === 0;
   albumNext.disabled = albumIndex === albumPhotos.length - 1;
   albumDots.innerHTML = "";
-  albumPhotos.forEach((photo, index) => {
+  albumThumbs.innerHTML = "";
+
+  albumPhotos.forEach((item, index) => {
     const dot = document.createElement("button");
     dot.type = "button";
     dot.className = "photo-dot" + (index === albumIndex ? " active" : "");
@@ -703,11 +684,50 @@ function renderAlbum() {
       renderAlbum();
     });
     albumDots.appendChild(dot);
+
+    const thumb = document.createElement("button");
+    thumb.type = "button";
+    thumb.className = "album-thumb" + (index === albumIndex ? " active" : "");
+    thumb.setAttribute("aria-label", "Foto " + (index + 1) + " anzeigen");
+    const img = document.createElement("img");
+    img.src = item.url;
+    img.alt = item.caption || ("Foto " + (index + 1));
+    img.loading = "lazy";
+    thumb.appendChild(img);
+    thumb.addEventListener("click", () => {
+      albumIndex = index;
+      renderAlbum();
+    });
+    albumThumbs.appendChild(thumb);
   });
 }
+
+onValue(albumRef, snapshot => {
+  const data = snapshot.val() || {};
+  const uploadedAlbumPhotos = Object.entries(data)
+    .filter(([, item]) => item && typeof item.url === "string")
+    .map(([id, item]) => ({
+      id,
+      url: item.url,
+      caption: item.caption || "Eine Erinnerung 💗",
+      createdAt: Number(item.createdAt) || 0
+    }))
+    .sort((a, b) => a.createdAt - b.createdAt);
+
+  const currentId = albumPhotos[albumIndex]?.id;
+  albumPhotos = [...initialAlbumPhotos, ...uploadedAlbumPhotos];
+  const sameIndex = albumPhotos.findIndex(item => item.id === currentId);
+  if (sameIndex >= 0) albumIndex = sameIndex;
+  else if (albumIndex >= albumPhotos.length) albumIndex = Math.max(0, albumPhotos.length - 1);
+  renderAlbum();
+}, error => {
+  albumUploadStatus.textContent = "Die gemeinsamen Fotos konnten nicht geladen werden. Bitte Firebase-Regeln prüfen.";
+  console.error("Fotoalbum laden:", error);
+});
+
 albumImage.addEventListener("error", () => {
   console.error("Foto konnte nicht geladen werden:", albumImage.src);
-  albumCaption.textContent = "Foto nicht gefunden 😕";
+  albumCaption.textContent = "Foto konnte nicht geladen werden 😕";
 });
 albumPrev.addEventListener("click", () => {
   if (albumIndex > 0) {
@@ -721,9 +741,54 @@ albumNext.addEventListener("click", () => {
     renderAlbum();
   }
 });
+
+albumUploadForm.addEventListener("submit", async event => {
+  event.preventDefault();
+  const files = Array.from(albumUploadInput.files || []);
+  if (!files.length) return;
+
+  const tooLarge = files.find(file => file.size > 8 * 1024 * 1024);
+  if (tooLarge) {
+    albumUploadStatus.textContent = "Bitte nur Fotos mit maximal 8 MB pro Bild auswählen.";
+    return;
+  }
+  const notImages = files.find(file => !file.type.startsWith("image/"));
+  if (notImages) {
+    albumUploadStatus.textContent = "Bitte nur Bilddateien auswählen.";
+    return;
+  }
+
+  albumUploadButton.disabled = true;
+  albumUploadButton.textContent = "Fotos werden hochgeladen …";
+  let uploaded = 0;
+  try {
+    for (const file of files) {
+      const photoId = push(albumRef).key;
+      const safeName = file.name.replace(/[^a-zA-Z0-9._-]/g, "_").slice(0, 100) || "foto.jpg";
+      const fileRef = storageRef(storage, "photoAlbum/" + photoId + "_" + safeName);
+      await uploadBytes(fileRef, file, {contentType: file.type || "image/jpeg"});
+      const url = await getDownloadURL(fileRef);
+      await set(ref(db, "photoAlbum/photos/" + photoId), {
+        url,
+        caption: file.name.replace(/\.[^.]+$/, "").slice(0, 100) || "Eine Erinnerung 💗",
+        createdAt: Date.now()
+      });
+      uploaded++;
+    }
+    albumUploadInput.value = "";
+    albumUploadStatus.textContent = uploaded + (uploaded === 1 ? " Foto wurde hinzugefügt 💗" : " Fotos wurden hinzugefügt 💗");
+    showToast("Neue Erinnerung im Fotoalbum! 📸💗");
+  } catch (error) {
+    console.error("Foto-Upload:", error);
+    albumUploadStatus.textContent = "Upload fehlgeschlagen. Prüfe, ob Firebase Storage aktiviert ist und die Storage-Regeln Uploads erlauben.";
+  } finally {
+    albumUploadButton.disabled = false;
+    albumUploadButton.textContent = "Fotos hochladen 💗";
+  }
+});
 renderAlbum();
 
-/* Weltkarte: gemeinsame Stecknadeln und Erinnerungen */
+/* Weltkarte */
 const mapStatus = document.getElementById("mapStatus");
 const mapForm = document.getElementById("mapForm");
 const mapPlaceName = document.getElementById("mapPlaceName");
@@ -744,15 +809,11 @@ function initializeTravelMap() {
     return;
   }
 
-  travelMap = L.map("travelMap", {
-    worldCopyJump: true
-  }).setView([25, 10], 2);
-
+  travelMap = L.map("travelMap", {worldCopyJump:true}).setView([25, 10], 2);
   L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a>',
     maxZoom: 18
   }).addTo(travelMap);
-
   mapMarkersLayer = L.layerGroup().addTo(travelMap);
 
   travelMap.on("click", event => {
@@ -760,8 +821,7 @@ function initializeTravelMap() {
       lat: Number(event.latlng.lat.toFixed(6)),
       lng: Number(event.latlng.lng.toFixed(6))
     };
-    mapCoordinates.textContent =
-      "Position: " + pendingMapPoint.lat + ", " + pendingMapPoint.lng;
+    mapCoordinates.textContent = "Position: " + pendingMapPoint.lat + ", " + pendingMapPoint.lng;
     mapPlaceName.value = "";
     mapPlaceNote.value = "";
     mapPlacePhoto.value = "";
@@ -797,27 +857,21 @@ function renderMapMarkers() {
     if (!place || !Number.isFinite(Number(place.lat)) || !Number.isFinite(Number(place.lng))) return;
 
     const markerIcon = L.divIcon({
-      className: "",
-      html: '<div class="map-marker">📍</div>',
-      iconSize: [32, 36],
-      iconAnchor: [16, 34]
+      className:"",
+      html:'<div class="map-marker">📍</div>',
+      iconSize:[32,36],
+      iconAnchor:[16,34]
     });
-
-    const marker = L.marker([Number(place.lat), Number(place.lng)], {
-      icon: markerIcon
-    }).addTo(mapMarkersLayer);
+    const marker = L.marker([Number(place.lat), Number(place.lng)], {icon:markerIcon}).addTo(mapMarkersLayer);
 
     marker.on("click", () => {
       const popup = document.createElement("div");
-
       const title = document.createElement("div");
       title.className = "map-popup-title";
       title.textContent = place.name || "Unsere Erinnerung";
-
       const note = document.createElement("div");
       note.className = "map-popup-note";
       note.textContent = place.note || "";
-
       popup.append(title, note);
 
       if (typeof place.photo === "string" && place.photo.startsWith("data:image/")) {
@@ -828,45 +882,38 @@ function renderMapMarkers() {
         popup.appendChild(image);
       }
 
+      if (place.visitedAt) {
+        const visited = document.createElement("div");
+        visited.className = "map-popup-date";
+        visited.textContent = "Dort gewesen: " + new Intl.DateTimeFormat("de-DE", {dateStyle:"medium"}).format(new Date(place.visitedAt));
+        popup.appendChild(visited);
+      }
       if (place.createdAt) {
         const date = document.createElement("div");
         date.className = "map-popup-date";
-        date.textContent = new Intl.DateTimeFormat("de-DE", {
-          dateStyle: "medium"
-        }).format(new Date(place.createdAt));
+        date.textContent = "Eintrag erstellt: " + new Intl.DateTimeFormat("de-DE", {dateStyle:"medium"}).format(new Date(place.createdAt));
         popup.appendChild(date);
       }
 
       marker.bindPopup(popup, {
-        maxWidth: 260,
-        minWidth: 180,
-        autoPan: true,
-        closeButton: true
+        maxWidth:260,
+        minWidth:180,
+        autoPan:true,
+        closeButton:true
       }).openPopup();
     });
   });
 }
 
-/* Fotos vor dem Speichern verkleinern, damit Firebase nicht mit Originaldateien überladen wird */
 async function compressMapPhoto(file) {
-  if (!file || !file.type.startsWith("image/")) {
-    throw new Error("Bitte wählt eine Bilddatei aus.");
-  }
-  if (file.size > 15 * 1024 * 1024) {
-    throw new Error("Das Originalfoto ist größer als 15 MB.");
-  }
+  if (!file || !file.type.startsWith("image/")) throw new Error("Bitte wählt eine Bilddatei aus.");
+  if (file.size > 15 * 1024 * 1024) throw new Error("Das Originalfoto ist größer als 15 MB.");
 
   const image = await new Promise((resolve, reject) => {
     const objectUrl = URL.createObjectURL(file);
     const img = new Image();
-    img.onload = () => {
-      URL.revokeObjectURL(objectUrl);
-      resolve(img);
-    };
-    img.onerror = () => {
-      URL.revokeObjectURL(objectUrl);
-      reject(new Error("Das Foto konnte nicht geöffnet werden."));
-    };
+    img.onload = () => { URL.revokeObjectURL(objectUrl); resolve(img); };
+    img.onerror = () => { URL.revokeObjectURL(objectUrl); reject(new Error("Das Foto konnte nicht geöffnet werden.")); };
     img.src = objectUrl;
   });
 
@@ -875,12 +922,10 @@ async function compressMapPhoto(file) {
   const canvas = document.createElement("canvas");
   canvas.width = Math.max(1, Math.round(image.naturalWidth * scale));
   canvas.height = Math.max(1, Math.round(image.naturalHeight * scale));
-
   const context = canvas.getContext("2d");
   context.fillStyle = "#ffffff";
   context.fillRect(0, 0, canvas.width, canvas.height);
   context.drawImage(image, 0, 0, canvas.width, canvas.height);
-
   return canvas.toDataURL("image/jpeg", 0.65);
 }
 
@@ -900,6 +945,10 @@ mapForm.addEventListener("submit", async event => {
   const name = mapPlaceName.value.trim();
   const note = mapPlaceNote.value.trim();
   const file = mapPlacePhoto.files && mapPlacePhoto.files[0];
+  const visitedDateInput = document.getElementById("mapVisitDate");
+  const visitedAt = visitedDateInput && visitedDateInput.value
+    ? new Date(visitedDateInput.value + "T12:00:00").getTime()
+    : null;
 
   if (!name || !note || !file) {
     mapStatus.textContent = "Bitte gebt einen Ort, eine Erinnerung und ein Foto an.";
@@ -919,6 +968,7 @@ mapForm.addEventListener("submit", async event => {
       lat: pendingMapPoint.lat,
       lng: pendingMapPoint.lng,
       photo,
+      visitedAt,
       createdAt: Date.now()
     };
 

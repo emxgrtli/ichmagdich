@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="de">
 <head>
@@ -96,7 +97,7 @@ button{font-size:16px;font-weight:700;border:0;border-radius:16px;padding:14px 2
 .map-form input[type="file"]{width:100%;font-size:13px;color:#74334e}
 .map-form button{background:#f06292;color:white}
 .map-hint{font-size:13px;color:#a36b82;margin:12px 0}
-.map-place-image{display:block;width:100%;height:120px;max-height:120px;object-fit:cover;object-position:center;border-radius:12px;margin-top:12px}
+.map-place-image{display:block;width:100%;height:auto;max-height:45vh;object-fit:contain;object-position:center;border-radius:12px;margin-top:12px;background:#fff1f6}
 .map-popup-title{font-size:16px;line-height:1.35;font-weight:800;color:#8e3e60;margin-bottom:8px;overflow-wrap:anywhere}
 .map-popup-note{font-size:13px;line-height:1.55;color:#74334e;white-space:pre-wrap;overflow-wrap:anywhere}
 .map-popup-date{font-size:11px;color:#a36b82;margin-top:9px}
@@ -104,7 +105,8 @@ button{font-size:16px;font-weight:700;border:0;border-radius:16px;padding:14px 2
 .map-form .secondary-button{background:#ffe1ec;color:#974c6c;box-shadow:none}
 .map-status{display:none!important}
 .leaflet-popup-content-wrapper{border-radius:16px;box-shadow:0 8px 25px rgba(116,51,78,.16)}
-.leaflet-popup-content{width:210px;max-width:calc(100vw - 100px);max-height:280px;overflow-y:auto;margin:14px 16px}
+.leaflet-popup-content{width:260px;max-width:calc(100vw - 76px);max-height:65vh;overflow-y:auto;overflow-x:hidden;margin:14px 16px;overscroll-behavior:contain}
+.leaflet-popup{max-width:calc(100vw - 24px)}
 
 /* Jahrestag-Timer */
 .anniversary-panel{text-align:center;background:linear-gradient(135deg,#fff1f6,#ffe0ec)}
@@ -166,7 +168,6 @@ button{font-size:16px;font-weight:700;border:0;border-radius:16px;padding:14px 2
     </section>
   </main>
 </div>
-
 <div id="world" class="hidden">
   <div class="container">
     <header class="top">
@@ -507,7 +508,7 @@ function updateAnniversaryTimer() {
   document.getElementById("timerMinutes").textContent = String(minutes).padStart(2, "0");
   document.getElementById("timerSeconds").textContent = String(seconds).padStart(2, "0");
   document.getElementById("timerTotalHours").textContent = totalHours.toLocaleString("de-DE");
-  document.getElementById("timerTotalMinutes").textContent = totalMinutes.toLocaleString("de-DE");
+   document.getElementById("timerTotalMinutes").textContent = totalMinutes.toLocaleString("de-DE");
 
   document.getElementById("floatTimer").textContent =
     `${days} Tage · ${hours} Std. · ${minutes} Min.`;
@@ -1171,44 +1172,49 @@ function renderMapMarkers() {
       icon: markerIcon
     }).addTo(mapMarkersLayer);
 
-    marker.on("click", () => {
-      const popup = document.createElement("div");
+    const popup = document.createElement("div");
 
-      const title = document.createElement("div");
-      title.className = "map-popup-title";
-      title.textContent = place.name || "Unsere Erinnerung";
+    const title = document.createElement("div");
+    title.className = "map-popup-title";
+    title.textContent = place.name || "Unsere Erinnerung";
 
-      const note = document.createElement("div");
-      note.className = "map-popup-note";
-      note.textContent = place.note || "";
+    const note = document.createElement("div");
+    note.className = "map-popup-note";
+    note.textContent = place.note || "";
 
-      popup.append(title, note);
+    popup.append(title, note);
 
-      if (typeof place.photo === "string" && place.photo.startsWith("data:image/")) {
-        const image = document.createElement("img");
-        image.className = "map-place-image";
-        image.src = place.photo;
-        image.alt = "Lieblingsfoto: " + (place.name || "Unsere Erinnerung");
-        popup.appendChild(image);
-      }
+    if (typeof place.photo === "string" && place.photo.startsWith("data:image/")) {
+      const image = document.createElement("img");
+      image.className = "map-place-image";
+      image.src = place.photo;
+      image.alt = "Lieblingsfoto: " + (place.name || "Unsere Erinnerung");
+      image.addEventListener("load", () => {
+        if (marker.isPopupOpen()) marker.getPopup().update();
+      });
+      popup.appendChild(image);
+    }
 
-      const visitTimestamp = place.visitedAt || place.createdAt;
+    const visitTimestamp = place.visitedAt || place.createdAt;
 
-      if (visitTimestamp) {
-        const date = document.createElement("div");
-        date.className = "map-popup-date";
-        date.textContent = "Besucht am " + new Intl.DateTimeFormat("de-DE", {
-          dateStyle: "medium"
-        }).format(new Date(visitTimestamp));
-        popup.appendChild(date);
-      }
+    if (visitTimestamp) {
+      const date = document.createElement("div");
+      date.className = "map-popup-date";
+      date.textContent = "Besucht am " + new Intl.DateTimeFormat("de-DE", {
+        dateStyle: "medium"
+      }).format(new Date(visitTimestamp));
+      popup.appendChild(date);
+    }
 
-      marker.bindPopup(popup, {
-        maxWidth: 260,
-        minWidth: 180,
-        autoPan: true,
-        closeButton: true
-      }).openPopup();
+    /* Popup genau einmal anlegen. Leaflet öffnet und schließt es selbst
+       bei jedem Klick auf die Stecknadel – auch nach dem Schließen per X. */
+    marker.bindPopup(popup, {
+      maxWidth: 300,
+      minWidth: 180,
+      autoPan: true,
+      autoPanPadding: [24, 24],
+      keepInView: true,
+      closeButton: true
     });
   });
 }
